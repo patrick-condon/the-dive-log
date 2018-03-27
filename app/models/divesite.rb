@@ -1,3 +1,4 @@
+# ruby model for divesite object
 class Divesite < ApplicationRecord
   has_many :log_entries
   has_many :users, through: :log_entries

@@ -17,7 +17,7 @@ class Api::V1::LogEntriesController < ApiController
     #   user = current_user
     # end
     render json: { log_entry: log_entry, user: user, site: site,
-                 author: author }
+                   author: author }
   end
 
   private
