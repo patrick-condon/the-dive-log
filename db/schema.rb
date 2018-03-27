@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326162648) do
+ActiveRecord::Schema.define(version: 20180327153313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dives", force: :cascade do |t|
+    t.integer "divesite_id", null: false
+    t.integer "user_id", null: false
+    t.date "date", null: false
+    t.text "comments", null: false
+    t.integer "dive_number"
+    t.integer "max_depth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
