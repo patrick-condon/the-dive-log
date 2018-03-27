@@ -11,28 +11,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <nav class="row">
-    <ul class="col-auto mr-auto">
-      <li class="name">
-        <h1><a href="/">TheDiveLog</a></h1>
-      </li>
-    </ul>
-
-    <section class="col-auto">
-      <ul class="right">
-        <%- if current_user -%>
-          <li><%= link_to 'Profile', user_path(current_user.id) %></li>
-          <li><%= link_to 'Edit', edit_user_registration_path %></li>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-        <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
-        <%- end -%>
-      </ul>
-    </section>
-  </nav>
-
+  <div id="navbar">
+    <nav class="navbar">
+      <h1><a href="/" class="navbar-brand">TheDiveLog</a></h1>
+        <div class="nav-item dropdown">
+          <%- if current_user -%>
+            <a class="nav-link dropdown-toggle" href="#" id="signedInNavbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.username %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="signedInNavbarDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to 'Profile', user_path(current_user.id) %></li>
+              <li class="dropdown-item"><%= link_to 'Edit', edit_user_registration_path %></li>
+              <li class="dropdown-item"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+            </div>
+          <%- else -%>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Login
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <li class="dropdown-item"><%= link_to 'Sign In', new_user_session_path %></li>
+            </div>
+          <%- end -%>
+        </div>
+    </nav>
+  </div>
   <%- flash.each do |key, value| -%>
     <div class="flash flash-<%= key %>">
       <%= value %>
@@ -42,6 +45,9 @@
   <%= yield %>
 
   <%= javascript_include_tag 'application' %>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <%= yield :extra_footer %>
 </body>
 </html>
