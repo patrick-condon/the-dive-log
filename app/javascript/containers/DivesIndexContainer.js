@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class BeersIndexContainer extends Component {
+class DivesIndexContainer extends Component {
   constructor(props) {
     super(props)
 
@@ -13,4 +13,4 @@ class BeersIndexContainer extends Component {
   }
 }
 
-export default BeersIndexContainer;
+export default DivesIndexContainer;
