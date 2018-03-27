@@ -2,7 +2,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :dives
+  has_many :log_entries
+  has_many :divesites, through: :log_entries
 
   validates :username, presence: true, uniqueness: true
 

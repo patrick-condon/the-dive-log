@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
-import DivesIndexContainer from '../containers/DivesIndexContainer'
-import DiveShowContainer from '../containers/DiveShowContainer'
+import LogEntriesIndexContainer from '../containers/LogEntriesIndexContainer'
+import LogEntryShowContainer from '../containers/LogEntryShowContainer'
 
 const App = props => {
 
   return(
     <Router history={browserHistory}>
       <Route path='/' >
-        <IndexRoute component={DivesIndexContainer} />
-        <Route path="dives" component={DivesIndexContainer} />
-        <Route path="dives/:id" component={DiveShowContainer} />
+        <IndexRoute component={LogEntriesIndexContainer} />
+        <Route path="log_entries" component={LogEntriesIndexContainer} />
+        <Route path="log_entries/:id" component={LogEntryShowContainer} />
       </Route>
     </Router>
   )
