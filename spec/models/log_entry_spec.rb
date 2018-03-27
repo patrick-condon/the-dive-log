@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Dive, type: :model do
+RSpec.describe LogEntry, type: :model do
   it { should have_valid(:divesite_id).when(1) }
   it { should_not have_valid(:divesite_id).when(nil, '') }
 
