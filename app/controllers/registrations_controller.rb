@@ -1,3 +1,4 @@
+# controller to add path to devise route
 class RegistrationsController < Devise::RegistrationsController
   protected
 

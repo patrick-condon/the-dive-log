@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :username, presence: true, uniqueness: true
 
+  validates_presence_of :first_name, :last_name
+
   mount_uploader :profile_photo, ProfilePhotoUploader
 
   devise :database_authenticatable, :registerable,

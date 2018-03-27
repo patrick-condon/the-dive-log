@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-feature 'user registers', %Q{
-  As a visitor
-  I want to register
-  So that I can create an account
-} do
+feature 'user registers' do
 
   # Acceptance Criteria:
   # * I must specify a valid email address,
@@ -15,6 +11,9 @@ feature 'user registers', %Q{
   scenario 'provide valid registration information' do
     visit new_user_registration_path
 
+    fill_in 'Username', with: 'username'
+    fill_in 'First name', with: 'Jim'
+    fill_in 'Last name', with: 'Halpert'
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'

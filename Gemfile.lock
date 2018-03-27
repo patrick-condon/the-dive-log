@@ -81,6 +81,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubi (1.7.1)
     excon (0.61.0)
     execjs (2.7.0)
@@ -425,6 +429,7 @@ DEPENDENCIES
   carrierwave
   coveralls
   devise
+  dotenv-rails
   factory_bot
   faker
   fog
@@ -445,6 +450,9 @@ DEPENDENCIES
   valid_attribute
   web-console (>= 3.3.0)
   webpacker (~> 3.3)
+
+RUBY VERSION
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.16.1
