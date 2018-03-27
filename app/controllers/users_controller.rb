@@ -15,5 +15,4 @@ class UsersController < ApplicationController
       @profile_photo = @user.profile_photo
     end
   end
-
 end

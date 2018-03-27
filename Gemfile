@@ -39,25 +39,25 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'pry-rails', group: [:development, :test]
 gem 'jquery-rails'
-gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: [:development, :test]
-gem 'launchy', group: [:development, :test]
 gem 'factory_bot', group: [:development, :test]
-gem 'valid_attribute', group: [:development, :test]
+gem 'launchy', group: [:development, :test]
+gem 'pry-rails', group: [:development, :test]
+gem 'rspec-rails', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
-gem 'devise'
-gem 'webpacker', '~> 3.3'
-gem 'faker'
+gem 'valid_attribute', group: [:development, :test]
+gem 'bootstrap', '~> 4.0.0'
 gem 'carrierwave'
+gem 'devise'
+gem 'faker'
 gem 'fog'
 gem 'redcarpet'
-gem 'bootstrap', '~> 4.0.0'
+gem 'webpacker', '~> 3.3'

@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-feature 'user registers', %Q{
-  As a visitor
-  I want to register
-  So that I can create an account
-} do
+feature 'user registers' do
 
   # Acceptance Criteria:
   # * I must specify a valid email address,

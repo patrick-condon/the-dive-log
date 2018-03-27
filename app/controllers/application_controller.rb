@@ -1,3 +1,4 @@
+# class to inherit traits and protect
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -8,11 +9,11 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(
       :sign_up, keys: [:username, :first_name, :last_name, :profile_photo,
-                      :home_town, :certification]
+                       :home_town, :certification]
     )
     devise_parameter_sanitizer.permit(
       :account_update, keys: [:username, :first_name, :last_name,
-                             :profile_photo, :home_town, :certification]
+                              :profile_photo, :home_town, :certification]
     )
   end
 end
