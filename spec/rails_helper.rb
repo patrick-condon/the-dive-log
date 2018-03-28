@@ -31,7 +31,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include ControllerHelpers, :type => :controller
+  config.include ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

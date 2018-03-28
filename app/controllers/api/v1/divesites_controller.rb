@@ -7,7 +7,4 @@ class Api::V1::DivesitesController < ApiController
     sites = Divesite.all.order(:created_at).reverse
     render json: { sites: sites, user: user }
   end
-
-  private
-
 end

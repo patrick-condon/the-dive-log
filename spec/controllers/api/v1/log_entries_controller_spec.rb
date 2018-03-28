@@ -47,8 +47,8 @@ RSpec.describe Api::V1::LogEntriesController, type: :controller do
     it 'creates a new LogEntry' do
       sign_in
       post_json = { log_entry: { divesite_id: site.id, user_id: user.id,
-                     max_depth: 30, date: Date.parse('Jul 5 2016'),
-                     comments: 'I liked this dive'} }
+                    max_depth: 30, date: Date.parse('Jul 5 2016'),
+                    comments: 'I liked this dive' } }
       prev_count = LogEntry.count
       post(:create, params: post_json)
       expect(LogEntry.count).to eq(prev_count + 1)
@@ -56,8 +56,8 @@ RSpec.describe Api::V1::LogEntriesController, type: :controller do
     it 'returns a json with new LogEntry info' do
       sign_in
       post_json = { log_entry: { divesite_id: site.id, user_id: user.id,
-                     max_depth: 30, date: Date.parse('Jul 5 2016'),
-                     comments: 'I liked this dive'} }
+                    max_depth: 30, date: Date.parse('Jul 5 2016'),
+                    comments: 'I liked this dive' } }
       post(:create, params: post_json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
