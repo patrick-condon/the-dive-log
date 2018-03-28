@@ -23,14 +23,13 @@ class Api::V1::LogEntriesController < ApiController
   def create
     if current_user
       new_log_entry = LogEntry.new(log_entry_params)
-      prev_entry = LogEntry.where(user_id: current_user.id).last
+      prev_entry = LogEntry.where(user_id: new_log_entry.user_id).last
       if prev_entry
         prev_entry_number = prev_entry.entry_number
       else
         prev_entry_number = 0
       end
       new_log_entry.entry_number = prev_entry_number + 1
-      binding.pry
       new_log_entry.save!
       render json: { log_entry: new_log_entry }
     end
