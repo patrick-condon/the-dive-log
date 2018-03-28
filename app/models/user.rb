@@ -3,8 +3,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   CERT_LEVELS = [
-    ["Bubble Watcher", "Bubble Watcher"],
-    ["Open Water Diver", "Open Water Diver"],
+    ['Bubble Watcher', 'Bubble Watcher'],
+    ['Open Water Diver', 'Open Water Diver'],
     ['Advanced Open Water Diver', 'Advanced Open Water Diver'],
     ['Rescue Diver', 'Rescue Diver'],
     ['Master Scuba Diver', 'Master Scuba Diver'],
@@ -14,7 +14,7 @@ class User < ApplicationRecord
     ['IDC Staff Instructor', 'IDC Staff Instructor'],
     ['Master Scuba Instructor', 'Master Scuba Instructor'],
     ['Course Director', 'Course Director']
-  ]
+  ].freeze
 
   has_many :log_entries
   has_many :divesites, through: :log_entries
