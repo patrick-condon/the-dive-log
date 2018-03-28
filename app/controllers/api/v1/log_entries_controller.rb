@@ -63,5 +63,4 @@ class Api::V1::LogEntriesController < ApiController
       @photo_address = @author.profile_photo.model.profile_photo_url
     end
   end
-
 end
