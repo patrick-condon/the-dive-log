@@ -1,58 +1,67 @@
+<div class="container">
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "off" %>
+  <div class="form-group row">
+    <%= f.label :username, class: 'col-3' %><br />
+    <%= f.text_field :username, autofocus: true, autocomplete: "off", class: 'col-9 form-control' %>
   </div>
-
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, autocomplete: "off" %>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, autocomplete: "off" %>
+  <div class="form-group row">
+    <div class="col-6">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, autocomplete: "off", class: 'form-control col-10' %>
+    </div>
+    <div class="col-6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, autocomplete: "off", class: 'form-control col-10' %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+  <div class="form-group row">
+    <%= f.label :home_town, class: 'col-3' %><br />
+    <%= f.text_field :home_town, autofocus: true, autocomplete: "off", class: 'col-9 form-control' %>
   </div>
-
-  <div class="field">
-    <%= f.label :profile_photo %>
-    <%= f.file_field :profile_photo %>
+  <div class="form-group row">
+    <%= f.label 'Certification Level', class: 'col-3' %>
+    <%= f.select(:certification, options_for_select(User::CERT_LEVELS), class: 'col-9 form-control') %>
   </div>
-
+  <div class="form-group row">
+    <%= f.label :email, class: 'col-3' %><br />
+    <%= f.email_field :email, autocomplete: "email", class: 'col-9 form-control' %>
+  </div>
+  <div class="form-group row">
+    <%= f.label :profile_photo, class: 'col-3' %>
+    <%= f.file_field :profile_photo, class: 'col-9 form-control' %>
+  </div>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group row">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
 
-  <div class="field">
+  <div class="form-group row">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group row">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", class: 'form-control' %>
   </div>
 <% end %>
-
+</div>
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>

@@ -50,7 +50,7 @@ class LogEntriesIndexContainer extends Component {
     })
 
     return (
-      <div>
+      <div className="container">
         <h2>{this.state.title}</h2>
         {logEntries}
         <Link to={'/log_entries/new'}>

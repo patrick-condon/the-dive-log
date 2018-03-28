@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
-  root 'log_entries#index'
+  root 'static_pages#index'
 
   resources :users, only: [:index, :show]
-  resources :log_entries, only: [:index, :show, :new]
-  resources :divesites, only: [:index, :show]
+  resources :log_entries, only: [:new]
 
   namespace :api do
     namespace :v1 do
