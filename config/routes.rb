@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#index'
 
   resources :users, only: [:index, :show]
-  resources :log_entries, only: [:new]
+  resources :log_entries, only: [:new, :show]
 
   namespace :api do
     namespace :v1 do

@@ -8,7 +8,8 @@ class LogEntryShowContainer extends Component {
       logEntry: {},
       currentUser: {},
       logEntryAuthor: {},
-      diveSite: {}
+      diveSite: {},
+      profilePhotoUrl: ''
     }
   }
 
@@ -29,7 +30,8 @@ class LogEntryShowContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ logEntry: body.log_entry, currentUser: body.user,
-                    logEntryAuthor: body.author, diveSite: body.site});
+                    logEntryAuthor: body.author, diveSite: body.site,
+                    profilePhotoUrl: body.photo_address});
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -42,6 +44,7 @@ class LogEntryShowContainer extends Component {
           logEntry={logEntry}
           author={this.state.logEntryAuthor}
           diveSite={this.state.diveSite}
+          authorPhoto={this.state.profilePhotoUrl}
         />
       </div>
     )
