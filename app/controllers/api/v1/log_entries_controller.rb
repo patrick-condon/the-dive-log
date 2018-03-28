@@ -11,13 +11,14 @@ class Api::V1::LogEntriesController < ApiController
   def show
     log_entry = LogEntry.find(params[:id])
     user = {}
-    author = User.find(log_entry.user_id)
+    @author = User.find(log_entry.user_id)
     site = Divesite.find(log_entry.divesite_id)
     # if current_user
     #   user = current_user
     # end
+    get_picture(@author)
     render json: { log_entry: log_entry, user: user, site: site,
-                   author: author }
+                   author: @author, photo_address: @photo_address }
   end
 
   def create
@@ -53,4 +54,14 @@ class Api::V1::LogEntriesController < ApiController
     end
     return sites
   end
+
+  def get_picture(author)
+    if @author.profile_photo.model.profile_photo_url.nil?
+      @photo_address =
+        'https://www.idyllwildarts.org/wp-content/uploads/2016/09/blank-profile-picture.jpg'
+    else
+      @photo_address = @author.profile_photo.model.profile_photo_url
+    end
+  end
+
 end
