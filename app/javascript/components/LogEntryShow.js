@@ -10,7 +10,7 @@ const LogEntryShow = props => {
   return(
     <div className='container'>
       <h3>Log Entry{number}</h3>
-      <h4>Chchchchanges!</h4>
+      <h4>Changes</h4>
       <h5>{props.diveSite.name} on {props.logEntry.date}</h5>
       <h5>By {props.author.first_name} {props.author.last_name}</h5>
       <p>Max Depth: {depth}</p>

@@ -1,46 +1,57 @@
+<div class="container">
 <h2>Sign up</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "off" %>
+  <div class="form-group row">
+    <%= f.label :username, class: 'col-3' %><br />
+    <%= f.text_field :username, autofocus: true, autocomplete: "off", class: 'col-9 form-control' %>
+  </div>
+  <div class="form-group row">
+    <div class="col-6">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, autocomplete: "off", class: 'form-control col-10' %>
+    </div>
+    <div class="col-6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, autocomplete: "off", class: 'form-control col-10' %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :home_town, class: 'col-3' %><br />
+    <%= f.text_field :home_town, autofocus: true, autocomplete: "off", class: 'col-9 form-control' %>
+  </div>
+  <div class="form-group row">
+    <%= f.label 'Certification Level', class: 'col-3' %>
+    <%= f.select(:certification, options_for_select(User::CERT_LEVELS), class: 'col-9 form-control') %>
+  </div>
+  <div class="form-group row">
+    <%= f.label :email, class: 'col-3' %><br />
+    <%= f.email_field :email, autocomplete: "email", class: 'col-9 form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, autocomplete: "off" %>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, autocomplete: "off" %>
+  <div class="form-group row">
+    <%= f.label :profile_photo, class: 'col-3' %>
+    <%= f.file_field :profile_photo, class: 'col-9 form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :profile_photo %>
-    <%= f.file_field :profile_photo %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
+  <div class="form-group row">
+    <%= f.label :password, class: 'col-3' %>
+    <%= f.password_field :password, autocomplete: "off", class: 'col-9 form-control' %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em class="col">(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="form-group row">
+    <%= f.label :password_confirmation, class: 'col-3' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'col-9 form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: 'form-control' %>
   </div>
 <% end %>
+</div>
 
 <%= render "devise/shared/links" %>
