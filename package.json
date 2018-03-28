@@ -9,6 +9,7 @@
     "@rails/webpacker": "~3.3.0",
     "babel-preset-react": "~6.24.1",
     "bootstrap": "^4.0.0",
+    "popper.js": "^1.14.1",
     "prop-types": "~15.6.0",
     "react": "~15.4.2",
     "react-dom": "~15.4.2",
