@@ -24,7 +24,7 @@ class Api::V1::LogEntriesController < ApplicationController
     # binding.pry
     render json: { log_entry: log_entry, user: user, site: site,
                    author: @author, photo_address: @photo_address,
-                   header_photo: header_photo_url}
+                   header_photo: header_photo_url }
   end
 
   def create

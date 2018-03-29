@@ -1,3 +1,4 @@
+# uploader for header photo to log entry model
 class HeaderPhotoUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
