@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
+import DivesiteSearchContainer from '../containers/DivesiteSearchContainer'
 import TextField from '../components/TextField';
-import SelectField from '../components/SelectField';
 import DateField from '../components/DateField';
 import TextAreaField from '../components/TextAreaField';
 import FileField from '../components/FileField';
@@ -13,7 +13,7 @@ class LogEntryFormContainer extends Component {
       title: 'Add New Log Entry',
       buttonText: 'Add Entry!',
       allSites: [],
-      diveSiteId: '',
+      diveSite: '',
       currentUser: {},
       date: '',
       comments: '',
@@ -21,10 +21,9 @@ class LogEntryFormContainer extends Component {
       errors: {}
     }
     this.validateField = this.validateField.bind(this)
-    this.handleDiveSiteChange = this.handleDiveSiteChange.bind(this)
+    this.handleDivesiteSet = this.handleDivesiteSet.bind(this)
     this.handleMaxDepthChange = this.handleMaxDepthChange.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
-    this.handleFileChange = this.handleFileChange.bind(this)
     this.handleCommentsChange = this.handleCommentsChange.bind(this)
     this.addNewLogEntry = this.addNewLogEntry.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -42,12 +41,12 @@ class LogEntryFormContainer extends Component {
       return true
     }
   }
+  handleDivesiteSet(submission) {
+    this.validateField(submission, { diveSite: 'Dive Site may not be blank' } )
+    this.setState( { diveSite: submission } )
+  }
   handleMaxDepthChange(event) {
     this.setState( { maxDepth: event.target.value } )
-  }
-  handleDiveSiteChange(event) {
-    this.validateField(event.target.value, { diveSiteId: 'Dive Site may not be blank' } )
-    this.setState( { diveSiteId: event.target.value } )
   }
   handleDateChange(event) {
     this.validateField(event.target.value, { date: 'Please give the date' } )
@@ -57,18 +56,15 @@ class LogEntryFormContainer extends Component {
     this.validateField(event.target.value, { comments: 'Please fill in some comments' } )
     this.setState( { comments: event.target.value } )
   }
-  handleFileChange(event) {
-      this.setState({ headerPhoto: event.target.files[0] })
-  }
   handleFormSubmit(event) {
     event.preventDefault();
     if (
-      this.validateField(this.state.diveSiteId, { diveSiteId: 'Dive Site may not be blank' }) &&
+      this.validateField(this.state.diveSite, { diveSite: 'Dive Site may not be blank' }) &&
       this.validateField(this.state.date, { date: 'Please give the date' }) &&
       this.validateField(this.state.comments, { comments: 'Please fill in some comments' })
     ) {
       let newLogEntry = { log_entry: {
-        divesite_id: this.state.diveSiteId,
+        divesite_id: this.state.diveSite.id,
         user_id: this.state.currentUser.id,
         max_depth: this.state.maxDepth,
         date: this.state.date,
@@ -81,7 +77,6 @@ class LogEntryFormContainer extends Component {
       // }
     }
   }
-
   componentDidMount() {
     fetch('/api/v1/divesites', {
       credentials: 'same-origin'
@@ -105,7 +100,6 @@ class LogEntryFormContainer extends Component {
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
-
   addNewLogEntry(submission) {
     fetch("/api/v1/log_entries", {
       method: 'post',
@@ -134,9 +128,7 @@ class LogEntryFormContainer extends Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-
   render() {
-    console.log(this.state.headerPhoto)
     let errorDiv
     let errorItems;
     if (Object.keys(this.state.errors).length > 0) {
@@ -147,18 +139,26 @@ class LogEntryFormContainer extends Component {
     }
     let title = this.state.title
     let buttonText = this.state.buttonText
-    return(
+    let display
+    if (this.state.diveSite == '') {
+      display =
+      <DivesiteSearchContainer
+        diveSites={this.state.allSites}
+        validateField={this.validateField}
+        handleErrors={this.handleErrors}
+        handleDivesiteSet={this.handleDivesiteSet}
+      />
+    } else {
+      display =
       <form onSubmit={this.handleFormSubmit}>
-        <h2>{title}</h2>
         {errorDiv}
         <div className="container">
-          <SelectField
-            handlerFunction={this.handleDiveSiteChange}
-            name='divesite'
-            label='Dive Site'
-            options={this.state.allSites}
-            selectedOption={this.state.diveSiteId}
-          />
+          <div className="form-group row">
+            <label className="col-3">Dive Site</label>
+              <div className="col-9">
+                <h4>{this.state.diveSite.name}</h4>
+              </div>
+            </div>
           <DateField
             handleChange={this.handleDateChange}
             label='Date of Dive'
@@ -181,6 +181,12 @@ class LogEntryFormContainer extends Component {
           <input type="submit" value={buttonText} />
         </div>
       </form>
+    }
+    return(
+      <div className="container">
+        <h2>{title}</h2>
+        {display}
+      </div>
     )
   }
 }
