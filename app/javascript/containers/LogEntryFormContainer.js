@@ -4,6 +4,7 @@ import TextField from '../components/TextField';
 import SelectField from '../components/SelectField';
 import DateField from '../components/DateField';
 import TextAreaField from '../components/TextAreaField';
+import FileField from '../components/FileField';
 
 class LogEntryFormContainer extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class LogEntryFormContainer extends Component {
     this.handleDiveSiteChange = this.handleDiveSiteChange.bind(this)
     this.handleMaxDepthChange = this.handleMaxDepthChange.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
     this.handleCommentsChange = this.handleCommentsChange.bind(this)
     this.addNewLogEntry = this.addNewLogEntry.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -54,6 +56,9 @@ class LogEntryFormContainer extends Component {
   handleCommentsChange(event) {
     this.validateField(event.target.value, { comments: 'Please fill in some comments' } )
     this.setState( { comments: event.target.value } )
+  }
+  handleFileChange(event) {
+      this.setState({ headerPhoto: event.target.files[0] })
   }
   handleFormSubmit(event) {
     event.preventDefault();
@@ -131,6 +136,7 @@ class LogEntryFormContainer extends Component {
 
 
   render() {
+    console.log(this.state.headerPhoto)
     let errorDiv
     let errorItems;
     if (Object.keys(this.state.errors).length > 0) {
