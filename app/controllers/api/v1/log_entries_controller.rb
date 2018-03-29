@@ -1,5 +1,6 @@
 # api endpoint for log_entries
-class Api::V1::LogEntriesController < ApiController
+class Api::V1::LogEntriesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: %i[index]
 
   def index
@@ -13,12 +14,17 @@ class Api::V1::LogEntriesController < ApiController
     user = {}
     @author = User.find(log_entry.user_id)
     site = Divesite.find(log_entry.divesite_id)
-    # if current_user
-    #   user = current_user
-    # end
+    if current_user
+      user = current_user
+    end
     get_picture(@author)
+    unless log_entry.header_photo.model.header_photo_url.nil?
+      header_photo_url = log_entry.header_photo.model.header_photo_url
+    end
+    # binding.pry
     render json: { log_entry: log_entry, user: user, site: site,
-                   author: @author, photo_address: @photo_address }
+                   author: @author, photo_address: @photo_address,
+                   header_photo: header_photo_url }
   end
 
   def create
@@ -36,11 +42,21 @@ class Api::V1::LogEntriesController < ApiController
     end
   end
 
+  def update
+    entry = LogEntry.find(params[:id])
+    entry.header_photo = params['header_photo']
+    if entry.save
+      header_photo_url = entry.header_photo.model.header_photo_url
+      render json: { header_photo: header_photo_url }
+    end
+  end
+
   private
 
   def log_entry_params
     params.require(:log_entry).permit(
-      :divesite_id, :user_id, :date, :comments, :dive_number, :max_depth
+      :divesite_id, :user_id, :date, :comments, :dive_number, :max_depth,
+      :header_photo
     )
   end
 
