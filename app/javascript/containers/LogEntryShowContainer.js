@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LogEntryShow from '../components/LogEntryShow';
 import FileField from '../components/FileField';
+import { Link, browserHistory } from 'react-router';
 
 class LogEntryShowContainer extends Component {
   constructor(props) {
@@ -92,6 +93,7 @@ class LogEntryShowContainer extends Component {
           headerPhoto={this.state.headerPhoto}
         />
         {headerForm}
+        <Link to="/">Back to Recent Log Entries</Link>
       </div>
     )
   }
