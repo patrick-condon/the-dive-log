@@ -12,6 +12,13 @@ class MapContainer extends React.Component {
       pieceOfState: null,
       anotherPiece: []
     }
+    this._getLatLong = this._getLatLong.bind(this)
+  }
+  _getLatLong(map, event) {
+    console.log(event.lngLat)
+    if (this.props.setCoordinates){
+      this.props.setCoordinates(event.lngLat)
+    }
   }
 
   render() {
@@ -20,15 +27,17 @@ class MapContainer extends React.Component {
         <Map
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
-            height: "30vh",
-            width: "30vw"
+            height: this.props.height,
+            width: this.props.width
           }}
           center={[this.props.lng, this.props.lat]}
+          onClick={this._getLatLong}
           >
           <Layer
             type="symbol"
             id="marker"
-            layout={{ "icon-image": "marker-15"}}>
+            layout={{ "icon-image": "marker-11"}}
+            >
             <Feature coordinates={[this.props.lng, this.props.lat]}/>
           </Layer>
         </Map>

@@ -52,10 +52,15 @@ class LogEntriesIndexContainer extends Component {
     return (
       <div className="container">
         <h2>{this.state.title}</h2>
+        <div className="row">
+          <Link to={'/log_entries/new'}>
+            Add New Log Entry
+          </Link>
+          <Link to={'/divesites/new'}>
+            Add New DiveSite
+          </Link>
+        </div>
         {logEntries}
-        <Link to={'/log_entries/new'}>
-          Add New Log Entry
-        </Link>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import DivesiteTile from '../components/DivesiteTile'
 import MapContainer from '../containers/MapContainer'
+import { Link } from 'react-router'
 
 class DivesiteSearchContainer extends Component {
   constructor(props) {
@@ -15,9 +16,23 @@ class DivesiteSearchContainer extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
     this.handleDivesiteSelect = this.handleDivesiteSelect.bind(this)
+    this.validateField = this.validateField.bind(this)
+  }
+  validateField(text, error) {
+    if (text === '' || text === ' ') {
+      let newError = error
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else {
+      let errorState = this.state.errors
+      let errorKey = Object.keys(error)[0]
+      delete errorState[errorKey]
+      this.setState({ errors: errorState })
+      return true
+    }
   }
   handleSearchChange(event) {
-    this.props.validateField(event.target.value, { search: 'Divesite must be given'})
+    this.validateField(event.target.value, { search: 'Divesite must be given'})
     this.setState({ search: event.target.value })
   }
   handleDivesiteSelect(submission) {
@@ -25,12 +40,14 @@ class DivesiteSearchContainer extends Component {
   }
   handleSearchSubmit(event) {
     event.preventDefault();
-    let sites = this.props.diveSites
-    let search = this.state.search
-    let results = sites.filter(site =>
-      site.name.toLowerCase().includes(search.toLowerCase())
-    )
-    this.setState({ results: results })
+    if (this.validateField(this.state.search, { search: 'Divesite must be given'})) {
+      let sites = this.props.diveSites
+      let search = this.state.search
+      let results = sites.filter(site =>
+        site.name.toLowerCase().includes(search.toLowerCase())
+      )
+      this.setState({ results: results, selectedSite: '' })
+    }
   }
 
   render() {
@@ -58,7 +75,13 @@ class DivesiteSearchContainer extends Component {
           )
         })
       } else {
-        results = 'No results. Please search again'
+        results =
+          <div>
+            <p>No results. Please search again. Or </p>
+            <Link to="/divesites/new">
+              Click Here to Add a New DiveSite
+            </Link>
+          </div>
       }
     }
     let submitClick = () => {this.props.handleDivesiteSet(this.state.selectedSite)}
@@ -66,6 +89,8 @@ class DivesiteSearchContainer extends Component {
     if (this.state.selectedSite != '') {
       mapbox =
       <MapContainer
+        height="30vh"
+        width="30vw"
         lat={this.state.selectedSite.lat}
         lng={this.state.selectedSite.lng}
       />

@@ -144,8 +144,6 @@ class LogEntryFormContainer extends Component {
       display =
       <DivesiteSearchContainer
         diveSites={this.state.allSites}
-        validateField={this.validateField}
-        handleErrors={this.handleErrors}
         handleDivesiteSet={this.handleDivesiteSet}
       />
     } else {

@@ -4,11 +4,12 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :log_entries, only: [:index, :show, :new]
+  resources :divesites, only: [:new, :show]
 
   namespace :api do
     namespace :v1 do
       resources :log_entries, only: [:index, :show, :create, :update]
-      resources :divesites, only: [:index]
+      resources :divesites, only: [:index, :show, :create]
     end
   end
   get '*path', to: 'static_pages#index'
