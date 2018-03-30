@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import DivesiteTile from '../components/DivesiteTile'
+import MapContainer from '../containers/MapContainer'
 
 class DivesiteSearchContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
       search: '',
-      results: [],
+      results: null,
+      selectedSite: '',
       errors: {}
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
+    this.handleDivesiteSelect = this.handleDivesiteSelect.bind(this)
   }
   handleSearchChange(event) {
     this.props.validateField(event.target.value, { search: 'Divesite must be given'})
     this.setState({ search: event.target.value })
+  }
+  handleDivesiteSelect(submission) {
+    this.setState({ selectedSite: submission })
   }
   handleSearchSubmit(event) {
     event.preventDefault();
@@ -36,18 +42,38 @@ class DivesiteSearchContainer extends Component {
       })
       errorDiv = <div className="callout alert">{errorItems}</div>
     }
-    let results = this.state.results.map(result => {
-      let handleClick = () => {this.props.handleDivesiteSet(result)}
-      return(
-        <DivesiteTile
-          key={result.id}
-          name={result.name}
-          lat={result.lat}
-          lng={result.lng}
-          handleClick={handleClick}
-        />
-      )
-    })
+    let results
+    if (this.state.results) {
+      if (this.state.results.length > 0) {
+        results = this.state.results.map(result => {
+          let handleClick = () => {this.handleDivesiteSelect(result)}
+          return(
+            <DivesiteTile
+              key={result.id}
+              name={result.name}
+              lat={result.lat}
+              lng={result.lng}
+              handleClick={handleClick}
+            />
+          )
+        })
+      } else {
+        results = 'No results. Please search again'
+      }
+    }
+    let submitClick = () => {this.props.handleDivesiteSet(this.state.selectedSite)}
+    let mapbox, submitLink
+    if (this.state.selectedSite != '') {
+      mapbox =
+      <MapContainer
+        lat={this.state.selectedSite.lat}
+        lng={this.state.selectedSite.lng}
+      />
+      submitLink =
+      <a href="#" onClick={submitClick}>
+        Click here to select {this.state.selectedSite.name}
+      </a>
+    }
     return(
       <div className="container">
         {errorDiv}
@@ -61,7 +87,15 @@ class DivesiteSearchContainer extends Component {
           />
           <input type="submit" value="Search" />
         </form>
-        {results}
+        <div className="row">
+          <div className="col-6">
+            {results}
+          </div>
+          <div className="col-6">
+            {mapbox}
+          </div>
+        </div>
+        {submitLink}
       </div>
     )
   }
