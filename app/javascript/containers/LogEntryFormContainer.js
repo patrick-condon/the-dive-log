@@ -5,6 +5,7 @@ import TextField from '../components/TextField';
 import DateField from '../components/DateField';
 import TextAreaField from '../components/TextAreaField';
 import FileField from '../components/FileField';
+import NumberField from '../components/NumberField';
 
 class LogEntryFormContainer extends Component {
   constructor(props) {
@@ -18,11 +19,19 @@ class LogEntryFormContainer extends Component {
       date: '',
       comments: '',
       maxDepth: '',
+      diveTime: '',
+      visibility: '',
+      waterTemp: '',
+      metric: false,
       errors: {}
     }
     this.validateField = this.validateField.bind(this)
     this.handleDivesiteSet = this.handleDivesiteSet.bind(this)
+    this.handleMetricChange = this.handleMetricChange.bind(this)
     this.handleMaxDepthChange = this.handleMaxDepthChange.bind(this)
+    this.handleDiveTimeChange = this.handleDiveTimeChange.bind(this)
+    this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
+    this.handleWaterTempChange = this.handleWaterTempChange.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
     this.handleCommentsChange = this.handleCommentsChange.bind(this)
     this.addNewLogEntry = this.addNewLogEntry.bind(this)
@@ -45,8 +54,24 @@ class LogEntryFormContainer extends Component {
     this.validateField(submission, { diveSite: 'Dive Site may not be blank' } )
     this.setState( { diveSite: submission } )
   }
+  handleMetricChange(event) {
+    if (this.state.metric == false) {
+      this.setState({ metric: true })
+    } else {
+      this.setState({ metric: false })
+    }
+  }
   handleMaxDepthChange(event) {
     this.setState( { maxDepth: event.target.value } )
+  }
+  handleDiveTimeChange(event) {
+    this.setState( { diveTime: event.target.value } )
+  }
+  handleVisibilityChange(event) {
+    this.setState( { visibility: event.target.value } )
+  }
+  handleWaterTempChange(event) {
+    this.setState( { waterTemp: event.target.value } )
   }
   handleDateChange(event) {
     this.validateField(event.target.value, { date: 'Please give the date' } )
@@ -139,6 +164,10 @@ class LogEntryFormContainer extends Component {
     }
     let title = this.state.title
     let buttonText = this.state.buttonText
+    let deg = " °F", unit = " ft"
+    if (this.state.metric == true) {
+      deg = " °C", unit = " m"
+    }
     let display
     if (this.state.diveSite == '') {
       display =
@@ -153,27 +182,59 @@ class LogEntryFormContainer extends Component {
         <div className="container">
           <div className="form-group row">
             <label className="col-3">Dive Site</label>
-              <div className="col-9">
-                <h4>{this.state.diveSite.name}</h4>
-              </div>
+            <div className="col-6">
+              <h4>{this.state.diveSite.name}</h4>
             </div>
+            <div className="form-check col-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="metric-check"
+                // value={this.state.metric}
+                onChange={this.handleMetricChange}
+              />
+              <label className="form-check-label">Metric?</label>
+            </div>
+          </div>
           <DateField
             handleChange={this.handleDateChange}
             label='Date of Dive'
             content={this.state.date}
           />
-          <TextField
-            content={this.state.maxDepth}
-            label="Max Depth (optional)"
-            name="max-depth"
-            type="text"
-            handleChange={this.handleMaxDepthChange}
-          />
+          <div className="form-group row justify-content-between">
+            <NumberField
+              content={this.state.diveTime}
+              label="Time of Dive (optional)"
+              name="dive-time"
+              handleChange={this.handleDiveTimeChange}
+              postLabel=" minutes"
+            />
+            <NumberField
+              content={this.state.maxDepth}
+              label="Max Depth (optional)"
+              name="max-depth"
+              handleChange={this.handleMaxDepthChange}
+              postLabel={unit}
+            />
+            <NumberField
+              content={this.state.visibility}
+              label="Visibility (optional)"
+              name="visibility"
+              handleChange={this.handleVisibilityChange}
+              postLabel={unit}
+            />
+            <NumberField
+              content={this.state.waterTemp}
+              label="Water Temperature (optional)"
+              name="water-temp"
+              handleChange={this.handleWaterTempChange}
+              postLabel={deg}
+            />
+        </div>
           <TextAreaField
             content={this.state.comments}
             label="Comments:"
             name="comments"
-            type="textarea"
             handleChange={this.handleCommentsChange}
           />
           <input type="submit" value={buttonText} />

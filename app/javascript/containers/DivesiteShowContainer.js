@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import MapContainer from '../containers/MapContainer'
 
 class DivesiteShowContainer extends Component {
@@ -44,6 +44,7 @@ class DivesiteShowContainer extends Component {
       <div className="container">
         <h2>{this.state.divesite.name}</h2>
         {mapbox}
+        <Link to="/log_entries/new">Create Log Entry</Link>
       </div>
     )
   }

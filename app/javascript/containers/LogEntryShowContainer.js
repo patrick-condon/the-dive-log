@@ -8,11 +8,12 @@ class LogEntryShowContainer extends Component {
     super(props)
     this.state = {
       logEntry: {},
-      currentUser: {},
-      logEntryAuthor: {},
+      currentUser: null,
+      logEntryAuthor: '',
       diveSite: {},
       profilePhotoUrl: '',
-      headerPhoto: ''
+      headerPhoto: '',
+      uploadFile: ''
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.submitPhoto = this.submitPhoto.bind(this)
@@ -42,13 +43,13 @@ class LogEntryShowContainer extends Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
   handleFileChange(event) {
-      this.setState({ headerPhoto: event.target.files[0] })
+      this.setState({ uploadFile: event.target.files[0] })
   }
   submitPhoto(event) {
     event.preventDefault();
     let id = this.state.logEntry.id
     let formPayLoad = new FormData();
-    formPayLoad.append('header_photo', this.state.headerPhoto);
+    formPayLoad.append('header_photo', this.state.uploadFile);
     fetch(`/api/v1/log_entries/${id}`, {
       method: 'PATCH',
       credentials: 'same-origin',
@@ -73,7 +74,7 @@ class LogEntryShowContainer extends Component {
 
   render() {
     let headerForm
-    if (this.state.currentUser.id == this.state.logEntryAuthor.id) {
+    if (this.state.currentUser  && this.state.currentUser.id == this.state.logEntryAuthor.id) {
       headerForm =  <form onSubmit={this.submitPhoto} className='container'>
                       <FileField
                         label="UpLoad New Headline Photo"
