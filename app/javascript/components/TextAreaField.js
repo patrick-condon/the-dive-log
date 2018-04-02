@@ -7,7 +7,7 @@ const TextAreaField = props => {
         <div className="col-9">
           <textarea
             name={props.name}
-            type={props.type}
+            type="textarea"
             value={props.content}
             onChange={props.handleChange}
             className="form-control"

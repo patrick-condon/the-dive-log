@@ -11,7 +11,7 @@ class Api::V1::LogEntriesController < ApplicationController
 
   def show
     log_entry = LogEntry.find(params[:id])
-    user = {}
+    user = nil
     @author = User.find(log_entry.user_id)
     site = Divesite.find(log_entry.divesite_id)
     if current_user
