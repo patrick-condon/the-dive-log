@@ -17,6 +17,7 @@ class User < ApplicationRecord
   ].freeze
 
   has_many :log_entries
+  has_many :photos
   has_many :divesites, through: :log_entries
 
   validates :username, presence: true, uniqueness: true
