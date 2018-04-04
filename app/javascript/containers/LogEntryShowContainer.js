@@ -17,12 +17,15 @@ class LogEntryShowContainer extends Component {
       divePhotoUrls: [],
       headerPhoto: '',
       uploadFile: '',
-      rotate: 0
+      rotate: 0,
+      scale: 1
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.submitPhoto = this.submitPhoto.bind(this)
     this.setEditorRef = this.setEditorRef.bind(this)
     this.rotateRight = this.rotateRight.bind(this)
+    this.rotateLeft = this.rotateLeft.bind(this)
+    this.handleScale = this.handleScale.bind(this)
   }
 
   componentDidMount() {
@@ -88,26 +91,62 @@ class LogEntryShowContainer extends Component {
       rotate: this.state.rotate + 90,
     })
   }
+  rotateLeft = e => {
+    e.preventDefault()
+    this.setState({
+      rotate: this.state.rotate - 90,
+    })
+  }
+  handleScale = e => {
+      const scale = parseFloat(e.target.value)
+      this.setState({ scale })
+    }
 
   render() {
     let headerForm, photoLink
     if (this.state.currentUser  && this.state.currentUser.id == this.state.logEntryAuthor.id) {
       headerForm =
-        <form onSubmit={this.submitPhoto} className='container'>
+        <div className='container'>
           <AvatarEditor
             ref={this.setEditorRef}
             image={this.state.uploadFile}
             width={250}
             height={250}
+            scale={parseFloat(this.state.scale)}
             rotate={this.state.rotate}
           />
-          <button onClick={this.rotateRight}>Right</button>
-          <input type="submit" value="Upload Picture" />
+          <div className="row">
+            <input
+              name="scale"
+              type="range"
+              // className="form-control"
+              onChange={this.handleScale}
+              min=".5"
+              max="2"
+              step="0.01"
+              defaultValue="1"
+            />
+            <label>Zoom</label>
+          </div>
+          <div className="row">
+            <button onClick={this.rotateLeft} className="btn btn-secondary">
+              <i className="fas fa-undo-alt"></i>
+            </button>
+            <button onClick={this.rotateRight} className="btn btn-secondary">
+              <i className="fas fa-redo-alt"></i>
+            </button>
+            <button onClick={this.handleFileSet} className="btn btn-secondary">
+              <i className="far fa-save"></i>
+            </button>
+            <button onClick={this.submitPhoto} className="btn btn-secondary">
+              Upload Picture
+            </button>
+          </div>
           <FileField
             label="Select New Headline Photo"
             handleChange={this.handleFileChange}
           />
-        </form>
+        </div>
       photoLink =
         <Link
           to={`/log_entries/${this.state.logEntry.id}/photos/new`}>

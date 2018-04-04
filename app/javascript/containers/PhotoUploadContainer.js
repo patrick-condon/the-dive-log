@@ -86,16 +86,17 @@ class PhotoUploadContainer extends Component {
               scale={parseFloat(this.state.scale)}
               rotate={this.state.rotate}
             />
-            <label>Zoom</label>
             <input
               name="scale"
               type="range"
+              // className="form-control"
               onChange={this.handleScale}
               min=".5"
               max="2"
               step="0.01"
               defaultValue="1"
             />
+            <label>Zoom</label>
             <div className="row">
               <button onClick={this.rotateLeft} className="btn btn-secondary">
                 <i className="fas fa-undo-alt"></i>
@@ -107,7 +108,7 @@ class PhotoUploadContainer extends Component {
                 <i className="far fa-save"></i>
               </button>
               <button onClick={this.submitPhoto} className="btn btn-secondary">
-                Upload Pictures
+                Upload Picture
               </button>
             </div>
           </div>
