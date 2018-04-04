@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import AvatarEditor from 'react-avatar-editor';
 import LogEntryShow from '../components/LogEntryShow';
 import FileField from '../components/FileField';
 import { Link, browserHistory } from 'react-router';
-import AvatarEditor from 'react-avatar-editor'
+import ImageButtonGroup from '../components/ImageButtonGroup'
 import Thumbnail from '../components/Thumbnail'
 
 class LogEntryShowContainer extends Component {
@@ -18,7 +19,8 @@ class LogEntryShowContainer extends Component {
       headerPhoto: '',
       uploadFile: '',
       rotate: 0,
-      scale: 1
+      scale: 1,
+      headerClicked: false,
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.submitPhoto = this.submitPhoto.bind(this)
@@ -26,6 +28,7 @@ class LogEntryShowContainer extends Component {
     this.rotateRight = this.rotateRight.bind(this)
     this.rotateLeft = this.rotateLeft.bind(this)
     this.handleScale = this.handleScale.bind(this)
+    this.setClicked = this.setClicked.bind(this)
   }
 
   componentDidMount() {
@@ -80,7 +83,9 @@ class LogEntryShowContainer extends Component {
       }
     )
     .then(response => response.json())
-    .then(body => this.setState({ headerPhoto: body.header_photo }))
+    .then(body => this.setState({ headerPhoto: body.header_photo,
+                                  uploadFile: '',
+                                  headerClicked: false}))
   };
   setEditorRef = editor => {
     if (editor) this.editor = editor
@@ -98,13 +103,41 @@ class LogEntryShowContainer extends Component {
     })
   }
   handleScale = e => {
-      const scale = parseFloat(e.target.value)
-      this.setState({ scale })
+    const scale = parseFloat(e.target.value)
+    this.setState({ scale })
+  }
+  setClicked(event) {
+    event.preventDefault()
+    if (this.state.headerClicked == false) {
+      this.setState({ headerClicked: true })
+    } else {
+      this.setState({ headerClicked: false })
     }
+  }
 
   render() {
-    let headerForm, photoLink
+    let headerForm, headerLink, photoLink, buttonGroup
     if (this.state.currentUser  && this.state.currentUser.id == this.state.logEntryAuthor.id) {
+      photoLink =
+        <Link
+          to={`/log_entries/${this.state.logEntry.id}/photos/new`}>
+          Add Photos to Log Entry
+        </Link>
+      if (this.state.headerClicked == false) {
+        headerLink = <a href="#" onClick={this.setClicked}>Add New Header Photo?</a>
+      }
+    }
+    if (this.state.uploadFile != '') {
+      buttonGroup =
+        <ImageButtonGroup
+          handleScale={this.handleScale}
+          rotateLeft={this.rotateLeft}
+          rotateRight={this.rotateRight}
+          submitPhoto={this.submitPhoto}
+        />
+    }
+    if (this.state.headerClicked == true) {
+      headerLink = ''
       headerForm =
         <div className='container'>
           <AvatarEditor
@@ -115,48 +148,19 @@ class LogEntryShowContainer extends Component {
             scale={parseFloat(this.state.scale)}
             rotate={this.state.rotate}
           />
-          <div className="row">
-            <input
-              name="scale"
-              type="range"
-              // className="form-control"
-              onChange={this.handleScale}
-              min=".5"
-              max="2"
-              step="0.01"
-              defaultValue="1"
-            />
-            <label>Zoom</label>
-          </div>
-          <div className="row">
-            <button onClick={this.rotateLeft} className="btn btn-secondary">
-              <i className="fas fa-undo-alt"></i>
-            </button>
-            <button onClick={this.rotateRight} className="btn btn-secondary">
-              <i className="fas fa-redo-alt"></i>
-            </button>
-            <button onClick={this.handleFileSet} className="btn btn-secondary">
-              <i className="far fa-save"></i>
-            </button>
-            <button onClick={this.submitPhoto} className="btn btn-secondary">
-              Upload Picture
-            </button>
-          </div>
+          {buttonGroup}
           <FileField
             label="Select New Headline Photo"
             handleChange={this.handleFileChange}
           />
+          <a href="#" onClick={this.setClicked}>Close Photo Selector</a>
         </div>
-      photoLink =
-        <Link
-          to={`/log_entries/${this.state.logEntry.id}/photos/new`}>
-          Add Photos to Log Entry
-        </Link>
     }
     let logEntry = this.state.logEntry
 
     return (
       <div className="container">
+        <Link to="/">Back to Recent Log Entries</Link>
         <LogEntryShow
           logEntry={logEntry}
           author={this.state.logEntryAuthor}
@@ -165,9 +169,9 @@ class LogEntryShowContainer extends Component {
           headerPhoto={this.state.headerPhoto}
           headerForm={headerForm}
           photoLink={photoLink}
+          headerLink={headerLink}
           photos={this.state.divePhotoUrls}
         />
-        <Link to="/">Back to Recent Log Entries</Link>
       </div>
     )
   }

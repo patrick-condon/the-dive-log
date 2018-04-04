@@ -6,7 +6,16 @@ class Api::V1::LogEntriesController < ApplicationController
   def index
     log_entries = LogEntry.all.order(:created_at).reverse
     sites = get_sites(log_entries)
-    render json: { log_entries: log_entries, sites: sites }
+    header_photos = []
+    log_entries.each do |entry|
+      if entry.header_photo.model.header_photo_url.nil?
+        header_photos << 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
+      else
+        header_photos << entry.header_photo.model.header_photo_url
+      end
+    end
+    render json: { log_entries: log_entries, sites: sites,
+                   header_photos: header_photos }
   end
 
   def show
@@ -23,7 +32,9 @@ class Api::V1::LogEntriesController < ApplicationController
       user = current_user
     end
     get_picture(@author)
-    unless log_entry.header_photo.model.header_photo_url.nil?
+    if log_entry.header_photo.model.header_photo_url.nil?
+      header_photo_url = 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
+    else
       header_photo_url = log_entry.header_photo.model.header_photo_url
     end
     # binding.pry
@@ -61,7 +72,7 @@ class Api::V1::LogEntriesController < ApplicationController
   def log_entry_params
     params.require(:log_entry).permit(
       :divesite_id, :user_id, :date, :comments, :dive_number, :max_depth,
-      :header_photo
+      :header_photo, :water_temp, :visibility, :dive_length
     )
   end
 

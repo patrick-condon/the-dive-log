@@ -92,6 +92,9 @@ class LogEntryFormContainer extends Component {
         divesite_id: this.state.diveSite.id,
         user_id: this.state.currentUser.id,
         max_depth: this.state.maxDepth,
+        visibility: this.state.visibility,
+        water_temp: this.state.waterTemp,
+        dive_length: this.state.diveTime,
         date: this.state.date,
         comments: this.state.comments
       } }
@@ -190,7 +193,6 @@ class LogEntryFormContainer extends Component {
                 className="form-check-input"
                 type="checkbox"
                 id="metric-check"
-                // value={this.state.metric}
                 onChange={this.handleMetricChange}
               />
               <label className="form-check-label">Metric?</label>

@@ -8,6 +8,7 @@ class LogEntriesIndexContainer extends Component {
     this.state = {
       allLogEntries: [],
       diveSites: [],
+      headerPhotos: [],
       title: 'Recent Dive Log Entries'
     }
   }
@@ -25,14 +26,15 @@ class LogEntriesIndexContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState({ allLogEntries: body.log_entries,
-                      diveSites: body.sites });
+                      diveSites: body.sites,
+                      headerPhotos: body.header_photos});
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   render() {
     let sites = this.state.diveSites
-    let logEntries = this.state.allLogEntries.map(entry => {
+    let logEntries = this.state.allLogEntries.map((entry, index) => {
       let diveSite
       sites.forEach(site => {
         if (site.id == entry.divesite_id) {
@@ -45,6 +47,7 @@ class LogEntriesIndexContainer extends Component {
           id={entry.id}
           siteName={diveSite.name}
           date={entry.date}
+          photo={this.state.headerPhotos[index]}
         />
       )
     })
