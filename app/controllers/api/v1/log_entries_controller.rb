@@ -12,6 +12,11 @@ class Api::V1::LogEntriesController < ApplicationController
   def show
     log_entry = LogEntry.find(params[:id])
     user = nil
+    photo_urls = []
+    photos = Photo.where(log_entry_id: log_entry.id)
+    if photos[0]
+      photo_urls = photos.map { |photo| photo.dive_photo.model.dive_photo_url }
+    end
     @author = User.find(log_entry.user_id)
     site = Divesite.find(log_entry.divesite_id)
     if current_user
@@ -24,7 +29,7 @@ class Api::V1::LogEntriesController < ApplicationController
     # binding.pry
     render json: { log_entry: log_entry, user: user, site: site,
                    author: @author, photo_address: @photo_address,
-                   header_photo: header_photo_url }
+                   header_photo: header_photo_url, photos: photo_urls }
   end
 
   def create

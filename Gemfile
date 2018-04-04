@@ -56,6 +56,7 @@ gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'valid_attribute', group: [:development, :test]
 gem 'bootstrap', '~> 4.0.0'
 gem 'carrierwave'
+gem 'carrierwave-base64'
 gem 'devise'
 gem 'faker'
 gem 'fog'
