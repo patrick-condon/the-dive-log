@@ -15,3 +15,15 @@ menu ul{
 img {
     image-orientation: from-image;
 }
+.log-entry-tile {
+  box-shadow: 0 2px 5px 2px grey;
+  transition: .3s;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  max-width: 70%;
+  }
+
+.tile-photo {
+  border-radius: 5px;
+}

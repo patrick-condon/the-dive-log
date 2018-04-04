@@ -3,6 +3,7 @@ import { Link, browserHistory } from 'react-router';
 import AvatarEditor from 'react-avatar-editor'
 import Thumbnail from '../components/Thumbnail'
 import FileField from '../components/FileField';
+import ImageButtonGroup from '../components/ImageButtonGroup'
 
 class PhotoUploadContainer extends Component {
   constructor(props) {
@@ -70,6 +71,17 @@ class PhotoUploadContainer extends Component {
       this.setState({ scale })
     }
   render() {
+    let buttonGroup
+    if (this.state.uploadFile != '') {
+      buttonGroup =
+        <ImageButtonGroup
+          handleScale={this.handleScale}
+          rotateLeft={this.rotateLeft}
+          rotateRight={this.rotateRight}
+          submitPhoto={this.submitPhoto}
+        />
+    }
+
     return(
       <div className="container">
         <h2>{this.state.title}</h2>
@@ -86,31 +98,7 @@ class PhotoUploadContainer extends Component {
               scale={parseFloat(this.state.scale)}
               rotate={this.state.rotate}
             />
-            <input
-              name="scale"
-              type="range"
-              // className="form-control"
-              onChange={this.handleScale}
-              min=".5"
-              max="2"
-              step="0.01"
-              defaultValue="1"
-            />
-            <label>Zoom</label>
-            <div className="row">
-              <button onClick={this.rotateLeft} className="btn btn-secondary">
-                <i className="fas fa-undo-alt"></i>
-              </button>
-              <button onClick={this.rotateRight} className="btn btn-secondary">
-                <i className="fas fa-redo-alt"></i>
-              </button>
-              <button onClick={this.handleFileSet} className="btn btn-secondary">
-                <i className="far fa-save"></i>
-              </button>
-              <button onClick={this.submitPhoto} className="btn btn-secondary">
-                Upload Picture
-              </button>
-            </div>
+            {buttonGroup}
           </div>
       </div>
     )
