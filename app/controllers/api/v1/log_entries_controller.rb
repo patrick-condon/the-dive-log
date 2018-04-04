@@ -8,13 +8,14 @@ class Api::V1::LogEntriesController < ApplicationController
     sites = get_sites(log_entries)
     header_photos = []
     log_entries.each do |entry|
-      unless entry.header_photo.model.header_photo_url.nil?
-        header_photos << entry.header_photo.model.header_photo_url
-      else
+      if entry.header_photo.model.header_photo_url.nil?
         header_photos << 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
+      else
+        header_photos << entry.header_photo.model.header_photo_url
       end
     end
-    render json: { log_entries: log_entries, sites: sites, header_photos: header_photos }
+    render json: { log_entries: log_entries, sites: sites,
+                   header_photos: header_photos }
   end
 
   def show
@@ -31,10 +32,10 @@ class Api::V1::LogEntriesController < ApplicationController
       user = current_user
     end
     get_picture(@author)
-    unless log_entry.header_photo.model.header_photo_url.nil?
-      header_photo_url = log_entry.header_photo.model.header_photo_url
-    else
+    if log_entry.header_photo.model.header_photo_url.nil?
       header_photo_url = 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
+    else
+      header_photo_url = log_entry.header_photo.model.header_photo_url
     end
     # binding.pry
     render json: { log_entry: log_entry, user: user, site: site,
