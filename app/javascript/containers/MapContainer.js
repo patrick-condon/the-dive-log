@@ -23,7 +23,7 @@ class MapContainer extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="col">
         <Map
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{

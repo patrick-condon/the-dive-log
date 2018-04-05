@@ -95,9 +95,11 @@ class DivesiteSearchContainer extends Component {
         lng={this.state.selectedSite.lng}
       />
       submitLink =
-      <a href="#" onClick={submitClick}>
-        Click here to select {this.state.selectedSite.name}
-      </a>
+      <div className="row justify-content-center">
+        <a href="#" onClick={submitClick} className="btn btn-primary">
+          Click here to select {this.state.selectedSite.name}
+        </a>
+      </div>
     }
     return(
       <div className="container">
@@ -113,7 +115,7 @@ class DivesiteSearchContainer extends Component {
           <input type="submit" value="Search" />
         </form>
         <div className="row">
-          <div className="col-6">
+          <div className="col-6 site-results">
             {results}
           </div>
           <div className="col-6">

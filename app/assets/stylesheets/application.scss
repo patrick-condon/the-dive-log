@@ -1,29 +1,128 @@
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Crimson+Text);
+@import url(https://fonts.googleapis.com/css?family=Cinzel);
+@import url(https://fonts.googleapis.com/css?family=Stylish);
 
 #navbar {
-  background-color: #73c4a4;
+  background-color: #35b3ff;
+  margin-bottom: 2rem;
+  .bar-text {
+    color: white;
+  }
+  .main {
+    font-size: 2rem;
+    line-height: 1.8;
+    vertical-align: -30%;
+    text-shadow: 1px 1px 3px grey;
+    font-family: 'Stylish', sans-serif;
+  }
+  box-shadow: 0 0 5px 1px grey;
 }
-
-// #title-link {
-//   justify-content: center;
-// }
+body {
+  background-color: #9cd6cd;
+  margin-bottom: 2rem;
+  font-family: Crimson Text, serif;
+  font-size: 1.2rem;
+}
+.headers-css {
+  background-color: #654321;
+  border-radius: 10px;
+  color: white;
+  padding: 1rem;
+}
+h1, h2, h3, h4, h5, h6 {
+   font-family: Cinzel, serif;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 2rem;
+  font-family: 'Stylish', sans-serif;
+}
+h6 {
+  font-size: 1.25rem;
+}
 menu ul{
   display: inline-flex;
   list-style: none;
 }
-
+.wrapper {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  border-radius: 10px;
+  background-color: #e2dac2;
+  box-shadow: 0 0 5px 1px grey;
+}
+.btn-primary {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+// .back {
+//   margin-top: 1rem;
+// }
+.entry-index {
+  margin-top: 1rem;
+}
 img {
     image-orientation: from-image;
 }
 .log-entry-tile {
   box-shadow: 0 2px 5px 2px grey;
+  background-color: #FFFFF0;
   transition: .3s;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 5px;
-  max-width: 70%;
-  }
-
+  max-width: 75%;
+}
 .tile-photo {
   border-radius: 5px;
+}
+.primary-photo-show {
+  margin: 2rem 0 1rem 0;
+}
+.primary-photo {
+  border: 8px solid white;
+  box-shadow: 0 0 2px grey;
+  border-radius: 2px;
+}
+.comments {
+  padding: 0 0 1rem 0;
+}
+.map {
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+.le-form-back {
+  margin-left: 1rem;
+}
+.le-title {
+  font-family: 'Stylish', sans-serif;
+}
+.show-details {
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px grey;
+  transition: .3s;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  background-color: #FFFFF0;
+}
+.show-photos {
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px grey;
+  transition: .3s;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #FFFFF0;
+}
+.thumb {
+  img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  }
+}
+.site-results {
+  padding: 1rem;
 }

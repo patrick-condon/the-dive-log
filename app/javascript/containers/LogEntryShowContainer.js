@@ -19,8 +19,7 @@ class LogEntryShowContainer extends Component {
       headerPhoto: '',
       uploadFile: '',
       rotate: 0,
-      scale: 1,
-      headerClicked: false,
+      scale: 1
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.submitPhoto = this.submitPhoto.bind(this)
@@ -28,7 +27,6 @@ class LogEntryShowContainer extends Component {
     this.rotateRight = this.rotateRight.bind(this)
     this.rotateLeft = this.rotateLeft.bind(this)
     this.handleScale = this.handleScale.bind(this)
-    this.setClicked = this.setClicked.bind(this)
   }
 
   componentDidMount() {
@@ -61,7 +59,7 @@ class LogEntryShowContainer extends Component {
   submitPhoto(event) {
     event.preventDefault();
     let id = this.state.logEntry.id
-    let img = this.editor.getImageScaledToCanvas().toDataURL()
+    let img = this.editor.getImage().toDataURL()
     let formPayLoad = new FormData();
     formPayLoad.append('header_photo', img);
     fetch(`/api/v1/log_entries/${id}`, {
@@ -106,61 +104,66 @@ class LogEntryShowContainer extends Component {
     const scale = parseFloat(e.target.value)
     this.setState({ scale })
   }
-  setClicked(event) {
-    event.preventDefault()
-    if (this.state.headerClicked == false) {
-      this.setState({ headerClicked: true })
-    } else {
-      this.setState({ headerClicked: false })
-    }
-  }
 
   render() {
-    let headerForm, headerLink, photoLink, buttonGroup
+    let headerForm, photoLink, buttonGroup
+    if (this.state.uploadFile != '') {
+      buttonGroup =
+      <ImageButtonGroup
+        handleScale={this.handleScale}
+        rotateLeft={this.rotateLeft}
+        rotateRight={this.rotateRight}
+        submitPhoto={this.submitPhoto}
+      />
+    }
     if (this.state.currentUser  && this.state.currentUser.id == this.state.logEntryAuthor.id) {
       photoLink =
         <Link
-          to={`/log_entries/${this.state.logEntry.id}/photos/new`}>
+          to={`/log_entries/${this.state.logEntry.id}/photos/new`}
+          className="btn btn-primary">
           Add Photos to Log Entry
         </Link>
-      if (this.state.headerClicked == false) {
-        headerLink = <a href="#" onClick={this.setClicked}>Add New Header Photo?</a>
-      }
-    }
-    if (this.state.uploadFile != '') {
-      buttonGroup =
-        <ImageButtonGroup
-          handleScale={this.handleScale}
-          rotateLeft={this.rotateLeft}
-          rotateRight={this.rotateRight}
-          submitPhoto={this.submitPhoto}
-        />
-    }
-    if (this.state.headerClicked == true) {
-      headerLink = ''
       headerForm =
-        <div className='container'>
-          <AvatarEditor
-            ref={this.setEditorRef}
-            image={this.state.uploadFile}
-            width={250}
-            height={250}
-            scale={parseFloat(this.state.scale)}
-            rotate={this.state.rotate}
-          />
-          {buttonGroup}
-          <FileField
-            label="Select New Headline Photo"
-            handleChange={this.handleFileChange}
-          />
-          <a href="#" onClick={this.setClicked}>Close Photo Selector</a>
+      <div>
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Add New Primary Photo
+        </button>
+
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">New Primary Photo</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="col text-center">
+                  <AvatarEditor
+                    ref={this.setEditorRef}
+                    image={this.state.uploadFile}
+                    width={250}
+                    height={250}
+                    scale={parseFloat(this.state.scale)}
+                    rotate={this.state.rotate}
+                  />
+                  {buttonGroup}
+                  <FileField
+                    label="Select New Primary Photo"
+                    handleChange={this.handleFileChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     }
     let logEntry = this.state.logEntry
 
     return (
-      <div className="container">
-        <Link to="/">Back to Recent Log Entries</Link>
+      <div className="container wrapper">
         <LogEntryShow
           logEntry={logEntry}
           author={this.state.logEntryAuthor}
@@ -169,7 +172,6 @@ class LogEntryShowContainer extends Component {
           headerPhoto={this.state.headerPhoto}
           headerForm={headerForm}
           photoLink={photoLink}
-          headerLink={headerLink}
           photos={this.state.divePhotoUrls}
         />
       </div>

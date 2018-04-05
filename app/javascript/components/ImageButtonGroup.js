@@ -3,7 +3,7 @@ import React from 'react';
 const ImageButtonGroup = props => {
   return(
     <div>
-      <div className="row">
+      <div className="row justify-content-center">
         <input
           name="scale"
           type="range"
@@ -14,16 +14,16 @@ const ImageButtonGroup = props => {
           step="0.01"
           defaultValue="1"
         />
-        <label>Zoom</label>
+        <label> Zoom</label>
       </div>
-      <div className="row">
+      <div className="row justify-content-center">
         <button onClick={props.rotateLeft} className="btn btn-secondary">
           <i className="fas fa-undo-alt"></i>
         </button>
         <button onClick={props.rotateRight} className="btn btn-secondary">
           <i className="fas fa-redo-alt"></i>
         </button>
-        <button onClick={props.submitPhoto} className="btn btn-secondary">
+        <button onClick={props.submitPhoto} className="btn btn-secondary" data-dismiss="modal">
           Upload Picture
         </button>
       </div>

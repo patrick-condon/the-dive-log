@@ -7,6 +7,7 @@
   <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+  <link rel="icon" href="../../assets/images/favicon.ico"/>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
@@ -18,10 +19,10 @@
 <body>
   <div id="navbar">
     <nav class="navbar">
-      <h1><a href="/" class="navbar-brand">TheDiveLog</a></h1>
+      <h1><a href="/" class="navbar-brand main bar-text">TheDiveLog</a></h1>
         <div class="nav-item dropdown">
           <%- if current_user -%>
-            <a class="nav-link dropdown-toggle" href="#" id="signedInNavbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle bar-text" href="#" id="signedInNavbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.username %>
             </a>
             <div class="dropdown-menu" aria-labelledby="signedInNavbarDropdownMenuLink">
@@ -30,7 +31,7 @@
               <li class="dropdown-item"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             </div>
           <%- else -%>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle bar-text" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Login
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

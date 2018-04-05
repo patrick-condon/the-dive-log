@@ -6,6 +6,7 @@ import DateField from '../components/DateField';
 import TextAreaField from '../components/TextAreaField';
 import FileField from '../components/FileField';
 import NumberField from '../components/NumberField';
+import BackButton from '../components/BackButton';
 
 class LogEntryFormContainer extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class LogEntryFormContainer extends Component {
     }
     this.validateField = this.validateField.bind(this)
     this.handleDivesiteSet = this.handleDivesiteSet.bind(this)
+    this.handleDivesiteClear = this.handleDivesiteClear.bind(this)
     this.handleMetricChange = this.handleMetricChange.bind(this)
     this.handleMaxDepthChange = this.handleMaxDepthChange.bind(this)
     this.handleDiveTimeChange = this.handleDiveTimeChange.bind(this)
@@ -53,6 +55,9 @@ class LogEntryFormContainer extends Component {
   handleDivesiteSet(submission) {
     this.validateField(submission, { diveSite: 'Dive Site may not be blank' } )
     this.setState( { diveSite: submission } )
+  }
+  handleDivesiteClear() {
+    this.setState({ diveSite: '' })
   }
   handleMetricChange(event) {
     if (this.state.metric == false) {
@@ -171,14 +176,26 @@ class LogEntryFormContainer extends Component {
     if (this.state.metric == true) {
       deg = " °C", unit = " m"
     }
-    let display
+    let display, backButton
     if (this.state.diveSite == '') {
+      backButton =
+      <BackButton
+        size="col-3 le-form-back"
+      />
       display =
       <DivesiteSearchContainer
         diveSites={this.state.allSites}
         handleDivesiteSet={this.handleDivesiteSet}
       />
     } else {
+      backButton =
+      <div className="col-3 le-form-back text-left">
+        <button
+          onClick={this.handleDivesiteClear}
+          className="btn btn-secondary">
+          Back
+        </button>
+      </div>
       display =
       <form onSubmit={this.handleFormSubmit}>
         {errorDiv}
@@ -244,8 +261,13 @@ class LogEntryFormContainer extends Component {
       </form>
     }
     return(
-      <div className="container">
-        <h2>{title}</h2>
+      <div className="container wrapper">
+        <div className="row">
+          {backButton}
+          <div className="col-6 text-center">
+            <h2>{title}</h2>
+          </div>
+        </div>
         {display}
       </div>
     )

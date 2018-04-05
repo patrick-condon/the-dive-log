@@ -53,17 +53,21 @@ class LogEntriesIndexContainer extends Component {
     })
 
     return (
-      <div className="container">
-        <h2>{this.state.title}</h2>
-        <div className="row">
-          <Link to={'/log_entries/new'}>
-            Add New Log Entry
-          </Link>
-          <Link to={'/divesites/new'}>
-            Add New DiveSite
-          </Link>
+      <div className="container wrapper">
+        <div className="col text-center">
+          <h2>{this.state.title}</h2>
+          <div className="row justify-content-center">
+            <Link to={'/log_entries/new'} className="btn btn-primary">
+              Add New Log Entry
+            </Link>
+            <Link to={'/divesites/new'} className="btn btn-primary">
+              Add New DiveSite
+            </Link>
+          </div>
         </div>
-        {logEntries}
+        <div className="entry-index">
+          {logEntries}
+        </div>
       </div>
     )
   }

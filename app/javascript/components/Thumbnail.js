@@ -3,7 +3,7 @@ import React from 'react';
 const Thumbnail = props => {
   let photoClick = () => {props.photoClick(props.id)}
   return(
-    <div>
+    <div className="thumb">
       <img
         src={props.image}
         className="img-thumbnail"

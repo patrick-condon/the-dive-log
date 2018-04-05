@@ -58,7 +58,6 @@ class LightboxContainer extends Component {
     })
     return (
       <div className="container">
-        <h4>Photos</h4>
         <Lightbox
           currentImage={this.state.currentImage}
           isOpen={this.state.lightboxOpen}
