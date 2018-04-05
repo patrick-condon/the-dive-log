@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
 import TextField from '../components/TextField';
+import BackButton from '../components/BackButton';
 import MapContainer from '../containers/MapContainer'
 
 class DivesiteFormContainer extends Component {
@@ -81,7 +82,7 @@ class DivesiteFormContainer extends Component {
     let submitButton
     if (this.state.clicked == true) {
       submitButton =
-        <div>
+        <div className="row justify-content-center">
           <p>Click here to submit divesite at this location</p>
           <button className="btn" onClick={this.submitDivesite}>Submit
           </button>
@@ -96,26 +97,39 @@ class DivesiteFormContainer extends Component {
       errorDiv = <div className="callout alert">{errorItems}</div>
     }
     return(
-      <div className="container">
-        <h2>Add a DiveSite</h2>
-        {errorDiv}
-        <TextField
-          content={this.state.siteName}
-          label="Dive Site Name"
-          name="divesite-name"
-          type="text"
-          handleChange={this.handleNameChange}
-        />
-        <div className="col-12">
-          <p>Click on map to select divesite location</p>
-          <MapContainer
-            height="70vh"
-            width="100vh"
-            lat={this.state.coordinates.lat}
-            lng={this.state.coordinates.lng}
-            setCoordinates={this.setCoordinates}
+      <div className="container wrapper">
+        <div className="col-12 text-center">
+          <div className="row">
+            <BackButton
+              size="col-3"
+            />
+            <h2 className="col-6">Add a DiveSite</h2>
+          </div>
+          {errorDiv}
+          <TextField
+            content={this.state.siteName}
+            label="Dive Site Name"
+            name="divesite-name"
+            type="text"
+            handleChange={this.handleNameChange}
           />
-          {submitButton}
+        </div>
+        <div className="col-12">
+          <div className="row justify-content-center">
+            <p>Click on map to select divesite location</p>
+          </div>
+          <div className="row">
+            <MapContainer
+              height="70vh"
+              width="100vh"
+              lat={this.state.coordinates.lat}
+              lng={this.state.coordinates.lng}
+              setCoordinates={this.setCoordinates}
+            />
+          <div className="col">
+              {submitButton}
+            </div>
+          </div>
         </div>
       </div>
     )

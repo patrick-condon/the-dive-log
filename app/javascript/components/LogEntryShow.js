@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import BackButton from '../components/BackButton'
 import LightboxContainer from '../containers/LightboxContainer'
 import MapContainer from '../containers/MapContainer'
 
@@ -20,7 +20,7 @@ const LogEntryShow = props => {
     temp = `${props.logEntry.water_temp} ${deg}`
   }
   if (props.logEntry.dive_length) {
-    length = `${props.logEntry.dive_length} minutes`
+    length = `${props.logEntry.dive_length} min`
   }
   let header
   if (props.headerPhoto != null) {
@@ -37,43 +37,63 @@ const LogEntryShow = props => {
     mapbox =
     <MapContainer
       height="30vh"
-      width="30vw"
+      width="30vh"
       lat={props.diveSite.lat}
       lng={props.diveSite.lng}
     />
   }
+  let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month, day, year
+  if (props.logEntry.date) {
+    let d = new Date(props.logEntry.date)
+    month = months[d.getMonth()]
+    day = d.getDate()
+    year = d.getFullYear()
+  }
+
   return(
     <div className='container'>
       <div className="row">
-        <h3 className="col">Log Entry{number}</h3>
-        <h5 className="col text-right">{props.diveSite.name}</h5>
+        <BackButton
+          size="col-4"
+        />
+        <h3 className="col-4 le-title text-center">Log Entry{number}</h3>
       </div>
+      <h5 className="col text-center">{props.diveSite.name}</h5>
+      <h5 className="col text-center">{month} {day}, {year}</h5>
+      <p className="col text-center">By {props.author.first_name} {props.author.last_name}</p>
+      <div className="col text-center"><img src={image} height="50" width="50"/></div>
+      <div className="row justify-content-center">{props.headerForm} {props.photoLink}</div>
       <div className="row">
-        <div className="col">
-          <img src={header} height="300" width="300" />
-          <h5>{props.logEntry.date}</h5>
-          <h5>By {props.author.first_name} {props.author.last_name}</h5>
-          <img src={image} height="50" width="50"/>
+        <div className="col-7 show-photos">
+          <div className="row justify-content-center primary-photo-show">
+            <div className="primary-photo">
+              <img src={header} height="300" width="300" />
+            </div>
+          </div>
+          <LightboxContainer
+            photos={photos}
+          />
         </div>
-        <div className="col text-center">
-          {props.headerLink}
-          {props.headerForm}
-        </div>
-        <div className="col">
-          {mapbox}
+        <div className="col-5 show-details">
+          <div className="row">
+            <div className="col map">
+              {mapbox}
+            </div>
+            <div className="col">
+              <div><p>Max Depth: {depth}</p></div>
+              <div><p>Visibility: {vis}</p></div>
+              <div><p>Water Temp: {temp}</p></div>
+              <div><p>Dive Length: {length}</p></div>
+            </div>
+          </div>
+          <div className="comments">
+            <h6>Comments:</h6>
+            <p>{props.logEntry.comments}</p>
+          </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col"><p>Max Depth: {depth}</p></div>
-        <div className="col"><p>Visibility: {vis}</p></div>
-        <div className="col"><p>Water Temp: {temp}</p></div>
-        <div className="col"><p>Dive Length: {length}</p></div>
-      </div>
-      <p>{props.logEntry.comments}</p>
-      {props.photoLink}
-      <LightboxContainer
-        photos={photos}
-      />
     </div>
   )
 }

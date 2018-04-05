@@ -4,6 +4,7 @@ import AvatarEditor from 'react-avatar-editor'
 import Thumbnail from '../components/Thumbnail'
 import FileField from '../components/FileField';
 import ImageButtonGroup from '../components/ImageButtonGroup'
+import BackButton from '../components/BackButton'
 
 class PhotoUploadContainer extends Component {
   constructor(props) {
@@ -83,11 +84,16 @@ class PhotoUploadContainer extends Component {
     }
 
     return(
-      <div className="container">
-        <h2>{this.state.title}</h2>
-          <div  className='container'>
+      <div className="container wrapper">
+          <div  className='col text-center'>
+            <div className='row'>
+              <BackButton
+                size="col-3"
+              />
+              <h2 className="col-6">{this.state.title}</h2>
+            </div>
             <FileField
-              label="UpLoad New Headline Photo"
+              class="row justify-content-center"
               handleChange={this.handleFileChange}
             />
             <AvatarEditor
