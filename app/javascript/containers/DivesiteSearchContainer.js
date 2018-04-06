@@ -11,12 +11,14 @@ class DivesiteSearchContainer extends Component {
       search: '',
       results: null,
       selectedSite: '',
+      currentPage: 1,
       errors: {}
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
     this.handleDivesiteSelect = this.handleDivesiteSelect.bind(this)
     this.validateField = this.validateField.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
   validateField(text, error) {
     if (text === '' || text === ' ') {
@@ -49,6 +51,11 @@ class DivesiteSearchContainer extends Component {
       this.setState({ results: results, selectedSite: '' })
     }
   }
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
 
   render() {
     let errorDiv
@@ -59,10 +66,19 @@ class DivesiteSearchContainer extends Component {
       })
       errorDiv = <div className="callout alert">{errorItems}</div>
     }
-    let results
+    let resultsPerPage = 6
+    let results, pages, pageResults, lastIndex, firstIndex
     if (this.state.results) {
       if (this.state.results.length > 0) {
-        results = this.state.results.map(result => {
+        let allResults = this.state.results
+        if (allResults.length > resultsPerPage){
+          lastIndex = this.state.currentPage * resultsPerPage
+          firstIndex = lastIndex - resultsPerPage
+          pageResults = allResults.slice(firstIndex, lastIndex)
+        } else {
+          pageResults = allResults
+        }
+        results = pageResults.map(result => {
           let handleClick = () => {this.handleDivesiteSelect(result)}
           return(
             <DivesiteTile
@@ -74,15 +90,43 @@ class DivesiteSearchContainer extends Component {
             />
           )
         })
+        let pageNumbers = []
+        for (let i = 1; i <= Math.ceil(allResults.length / resultsPerPage); i++) {
+              pageNumbers.push(i);
+            }
+        pages = pageNumbers.map(number => {
+          let className = "page-item"
+          let link =
+            <a
+              id={number}
+              href="#"
+              className="page-link"
+              onClick={this.handleClick}
+            >
+            {number}
+            </a>
+          if (number == this.state.currentPage) {
+            className = "page-item active"
+            link =
+            <span className="page-link">
+              {number}
+            </span>
+          }
+          return (
+            <li className={className} key={number}>
+              {link}
+            </li>
+          );
+        })
       } else {
         results =
           <div>
             <p>No results. Please search again. Or </p>
-            <Link to="/divesites/new">
+            <Link to="/divesites/new" className="btn btn-primary">
               Click Here to Add a New DiveSite
             </Link>
           </div>
-      }
+        }
     }
     let submitClick = () => {this.props.handleDivesiteSet(this.state.selectedSite)}
     let mapbox, submitLink
@@ -117,6 +161,9 @@ class DivesiteSearchContainer extends Component {
         <div className="row">
           <div className="col-6 site-results">
             {results}
+            <ul className="pagination">
+              {pages}
+            </ul>
           </div>
           <div className="col-6">
             {mapbox}

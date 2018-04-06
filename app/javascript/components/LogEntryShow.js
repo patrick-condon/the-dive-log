@@ -36,8 +36,9 @@ const LogEntryShow = props => {
   if (props.diveSite.lat) {
     mapbox =
     <MapContainer
+      size="col-lg-7 map"
       height="30vh"
-      width="30vh"
+      width="100%"
       lat={props.diveSite.lat}
       lng={props.diveSite.lng}
     />
@@ -66,22 +67,20 @@ const LogEntryShow = props => {
       <div className="col text-center"><img src={image} height="50" width="50"/></div>
       <div className="row justify-content-center">{props.headerForm} {props.photoLink}</div>
       <div className="row">
-        <div className="col-7 show-photos">
+        <div className="col-md-7 show-photos">
           <div className="row justify-content-center primary-photo-show">
             <div className="primary-photo">
-              <img src={header} height="300" width="300" />
+              <img src={header} width="100%" />
             </div>
           </div>
           <LightboxContainer
             photos={photos}
           />
         </div>
-        <div className="col-5 show-details">
+        <div className="col-md-5 show-details">
           <div className="row">
-            <div className="col map">
-              {mapbox}
-            </div>
-            <div className="col">
+            {mapbox}
+            <div className="col-lg-5">
               <div><p>Max Depth: {depth}</p></div>
               <div><p>Visibility: {vis}</p></div>
               <div><p>Water Temp: {temp}</p></div>

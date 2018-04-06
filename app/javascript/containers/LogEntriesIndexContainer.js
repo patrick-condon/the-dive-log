@@ -9,8 +9,10 @@ class LogEntriesIndexContainer extends Component {
       allLogEntries: [],
       diveSites: [],
       headerPhotos: [],
+      currentPage: 1,
       title: 'Recent Dive Log Entries'
     }
+    this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     fetch('/api/v1/log_entries')
@@ -31,10 +33,25 @@ class LogEntriesIndexContainer extends Component {
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
 
   render() {
     let sites = this.state.diveSites
-    let logEntries = this.state.allLogEntries.map((entry, index) => {
+    let entriesPerPage = 6
+    let pageEntries, lastIndex, firstIndex
+    let allEntries = this.state.allLogEntries
+    if (allEntries.length > entriesPerPage) {
+      lastIndex = this.state.currentPage * entriesPerPage
+      firstIndex = lastIndex - entriesPerPage
+      pageEntries = allEntries.slice(firstIndex, lastIndex)
+    } else {
+      pageEntries = allEntries
+    }
+    let logEntries = pageEntries.map((entry) => {
       let diveSite
       sites.forEach(site => {
         if (site.id == entry.divesite_id) {
@@ -47,11 +64,38 @@ class LogEntriesIndexContainer extends Component {
           id={entry.id}
           siteName={diveSite.name}
           date={entry.date}
-          photo={this.state.headerPhotos[index]}
+          photo={this.state.headerPhotos[allEntries.indexOf(entry)]}
         />
       )
     })
-
+    let pageNumbers = []
+    for (let i = 1; i <= Math.ceil(allEntries.length / entriesPerPage); i++) {
+          pageNumbers.push(i);
+        }
+    let pages = pageNumbers.map(number => {
+      let className = "page-item"
+      let link =
+        <a
+          id={number}
+          href="#"
+          className="page-link"
+          onClick={this.handleClick}
+        >
+        {number}
+        </a>
+      if (number == this.state.currentPage) {
+        className = "page-item active"
+        link =
+        <span className="page-link">
+          {number}
+        </span>
+      }
+      return (
+        <li className={className} key={number}>
+          {link}
+        </li>
+      );
+    })
     return (
       <div className="container wrapper">
         <div className="col text-center">
@@ -67,7 +111,11 @@ class LogEntriesIndexContainer extends Component {
         </div>
         <div className="entry-index">
           {logEntries}
+          <ul className="pagination justify-content-center">
+            {pages}
+          </ul>
         </div>
+
       </div>
     )
   }
