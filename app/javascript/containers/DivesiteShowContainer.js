@@ -41,10 +41,17 @@ class DivesiteShowContainer extends Component {
         />
     }
     return(
-      <div className="container">
-        <h2>{this.state.divesite.name}</h2>
-        {mapbox}
-        <Link to="/log_entries/new">Create Log Entry</Link>
+      <div className="container wrapper">
+        <h2 className="col text-center">{this.state.divesite.name}</h2>
+        <div className="row">
+          {mapbox}
+          <div className="col">
+            <div className="row justify-content-center">
+              <p>Click here to create Log Entry</p>
+              <Link to="/log_entries/new" className="btn btn-primary">Create</Link>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

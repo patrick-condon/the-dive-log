@@ -15,7 +15,8 @@ class MapContainer extends React.Component {
     this._getLatLong = this._getLatLong.bind(this)
   }
   _getLatLong(map, event) {
-    console.log(event.lngLat)
+    console.log(event.lngLat.lng.toFixed(6), event.lngLat.lat.toFixed(6))
+    // console.log(event.lngLat.lat.toFixed(6))
     if (this.props.setCoordinates){
       this.props.setCoordinates(event.lngLat)
     }
@@ -23,7 +24,7 @@ class MapContainer extends React.Component {
 
   render() {
     return(
-      <div className="col">
+      <div className={this.props.size}>
         <Map
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{

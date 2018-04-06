@@ -66,7 +66,7 @@ class LightboxContainer extends Component {
           onClickPrev={this.gotoPrevious}
           onClose={this.closeLightbox}
         />
-        <div className="row">
+        <div className="row justify-content-center">
           {images}
         </div>
       </div>

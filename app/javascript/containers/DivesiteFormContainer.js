@@ -84,7 +84,7 @@ class DivesiteFormContainer extends Component {
       submitButton =
         <div className="row justify-content-center">
           <p>Click here to submit divesite at this location</p>
-          <button className="btn" onClick={this.submitDivesite}>Submit
+          <button className="btn btn-primary" onClick={this.submitDivesite}>Submit
           </button>
         </div>
     }
@@ -120,13 +120,14 @@ class DivesiteFormContainer extends Component {
           </div>
           <div className="row">
             <MapContainer
+              size="col-9"
               height="70vh"
-              width="100vh"
+              width="100%"
               lat={this.state.coordinates.lat}
               lng={this.state.coordinates.lng}
               setCoordinates={this.setCoordinates}
             />
-          <div className="col">
+          <div className="col-3">
               {submitButton}
             </div>
           </div>

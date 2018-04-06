@@ -50,6 +50,7 @@ menu ul{
 .wrapper {
   padding-top: 2rem;
   padding-bottom: 1rem;
+  max-width: 90%;
   border-radius: 10px;
   background-color: #e2dac2;
   box-shadow: 0 0 5px 1px grey;
@@ -86,6 +87,8 @@ img {
   border: 8px solid white;
   box-shadow: 0 0 2px grey;
   border-radius: 2px;
+  width: 100%;
+  max-width: 325px;
 }
 .comments {
   padding: 0 0 1rem 0;
@@ -98,7 +101,7 @@ img {
   margin-left: 1rem;
 }
 .le-title {
-  font-family: 'Stylish', sans-serif;
+  font-size: 2.2rem;
 }
 .show-details {
   padding: 2rem;
