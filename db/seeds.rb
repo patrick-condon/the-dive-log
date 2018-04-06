@@ -14,10 +14,10 @@ bvi_divesite_data = [['Cathedral', -64.782222, 18.443428], ['Pirate\'s Purchase'
   ['Inganess Bay', -64.520381, 18.373631], ['RMS Rhone', -64.535125, 18.366730], ['Blonde Rock', -64.552920, 18.368836], ['Dead Chest North', -64.562114, 18.374352],
   ['Dead Chest West', -64.567644, 18.367369], ['Painted Walls', -64.562617, 18.362294], ['Wreck of the Fearless', -64.592448, 18.364695],
   ['Rhone\'s Anchor', -64.595129, 18.364005], ['Shark Point', -64.562618, 18.332283], ['Carrot Shoal', -64.577365, 18.325776], ['Brown Pants', -64.591611, 18.315782],
-  ['Spyglass Wall', -64.597811, 18.325502], ['Rainbow Canyons', -64.62479318.330608], ['The Indians', -64.629539, 18.332663], ['Ringdove Rock', -64.627124, 18.326365],
+  ['Spyglass Wall', -64.597811, 18.325502], ['Rainbow Canyons', -64.624793, 18.330608], ['The Indians', -64.629539, 18.332663], ['Ringdove Rock', -64.627124, 18.326365],
   ['Angelfish Reef', -64.627441, 18.308030], ['Chikuzen', 18.618817, -64.516150]
 ]
-gozo_divesite_data =[
+gozo_divesite_data = [
   ['Marsalforn Bay', 14.260102, 36.072722], ['Xwenji Bay', 14.252821, 36.077611], ['Double Arches', 14.247953, 36.081447], ['Anchor Reef', 14.241527, 36.081304],
   ['Reqqa Point', 14.236075, 36.082736], ['Shrimps Cave', 14.235294, 36.082022], ['Billinghurst Cave', 14.234710, 36.081880], ['Cathedral Cave', 14.230231, 36.082539],
   ['Ghasri Valley', 14.229257, 36.080980], ['Wied il Mielha', 14.212706, 36.080837], ['Gudja Cave', 14.196286, 36.075406], ['San Dimitri Point', 14.183313, 36.065207],
