@@ -36,3 +36,10 @@ bvi_divesite_data.each do |site|
     lat: site[2]
   )
 end
+gozo_divesite_data.each do |site|
+  divesites << Divesite.create(
+    name: site[0],
+    lng: site[1],
+    lat: site[2]
+  )
+end
