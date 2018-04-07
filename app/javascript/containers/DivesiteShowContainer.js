@@ -34,22 +34,26 @@ class DivesiteShowContainer extends Component {
     if (this.state.divesite.lat) {
       mapbox =
         <MapContainer
+          size="col-md-9"
           height="70vh"
-          width="100vh"
+          width="100%"
           lat={this.state.divesite.lat}
           lng={this.state.divesite.lng}
         />
     }
     return(
       <div className="container wrapper">
-        <h2 className="col text-center">{this.state.divesite.name}</h2>
+        <div className="row">
+          <div className="col-md-3">
+            <Link to="/" className="btn btn-secondary le-form-back">Recent Log Entries</Link>
+          </div>
+          <h2 className="col-md-6 text-center">{this.state.divesite.name}</h2>
+        </div>
         <div className="row">
           {mapbox}
-          <div className="col">
-            <div className="row justify-content-center">
-              <p>Click here to create Log Entry</p>
-              <Link to="/log_entries/new" className="btn btn-primary">Create</Link>
-            </div>
+          <div className="col-md-3 text-center">
+            <p>Click here to create Log Entry</p>
+            <Link to="/log_entries/new" className="btn btn-primary">Create</Link>
           </div>
         </div>
       </div>

@@ -161,9 +161,10 @@ class LogEntryShowContainer extends Component {
       </div>
     }
     let logEntry = this.state.logEntry
-
-    return (
-      <div className="container wrapper">
+    let display =
+      <h2>Please Log In or Sign Up to View Entry Details</h2>
+    if (this.state.currentUser) {
+      display =
         <LogEntryShow
           logEntry={logEntry}
           author={this.state.logEntryAuthor}
@@ -174,6 +175,10 @@ class LogEntryShowContainer extends Component {
           photoLink={photoLink}
           photos={this.state.divePhotoUrls}
         />
+    }
+    return (
+      <div className="container wrapper">
+        {display}
       </div>
     )
   }

@@ -120,14 +120,14 @@ class DivesiteFormContainer extends Component {
           </div>
           <div className="row">
             <MapContainer
-              size="col-9"
+              size="col-md-9 site-form-map"
               height="70vh"
               width="100%"
               lat={this.state.coordinates.lat}
               lng={this.state.coordinates.lng}
               setCoordinates={this.setCoordinates}
             />
-          <div className="col-3">
+          <div className="col-md-3">
               {submitButton}
             </div>
           </div>

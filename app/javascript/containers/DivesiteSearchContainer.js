@@ -38,6 +38,7 @@ class DivesiteSearchContainer extends Component {
     this.setState({ search: event.target.value })
   }
   handleDivesiteSelect(submission) {
+    event.preventDefault()
     this.setState({ selectedSite: submission })
   }
   handleSearchSubmit(event) {
@@ -66,7 +67,7 @@ class DivesiteSearchContainer extends Component {
       })
       errorDiv = <div className="callout alert">{errorItems}</div>
     }
-    let resultsPerPage = 6
+    let resultsPerPage = 8
     let results, pages, pageResults, lastIndex, firstIndex
     if (this.state.results) {
       if (this.state.results.length > 0) {
@@ -134,7 +135,7 @@ class DivesiteSearchContainer extends Component {
       mapbox =
       <MapContainer
         height="30vh"
-        width="30vw"
+        width="90%"
         lat={this.state.selectedSite.lat}
         lng={this.state.selectedSite.lng}
       />
@@ -159,13 +160,13 @@ class DivesiteSearchContainer extends Component {
           <input type="submit" value="Search" />
         </form>
         <div className="row">
-          <div className="col-6 site-results">
+          <div className="col-md-6 site-results" id="results">
             {results}
             <ul className="pagination">
               {pages}
             </ul>
           </div>
-          <div className="col-6">
+          <div className="col-md-6 site-result-map">
             {mapbox}
           </div>
         </div>
