@@ -65,7 +65,7 @@ const LogEntryShow = props => {
       <h5 className="col text-center">{month} {day}, {year}</h5>
       <p className="col text-center">By {props.author.first_name} {props.author.last_name}</p>
       <div className="col text-center"><img src={image} height="50" width="50"/></div>
-      <div className="row justify-content-center">{props.headerForm} {props.photoLink}</div>
+      <div className="row justify-content-center le-buttons">{props.headerForm} {props.photoLink}</div>
       <div className="row">
         <div className="col-md-7 show-photos">
           <div className="row justify-content-center primary-photo-show">
