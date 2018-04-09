@@ -260,8 +260,7 @@ class LogEntryFormContainer extends Component {
         </div>
       </form>
     }
-    let formDisplay =
-      <h2>Please Log In or Sign Up to Add Log Entry</h2>
+    let formDisplay
     if (this.state.currentUser) {
       formDisplay =
       <div>
@@ -273,7 +272,7 @@ class LogEntryFormContainer extends Component {
           </div>
           {display}
         </div>
-    }
+    } 
     return(
       <div className="container wrapper">
         {formDisplay}
