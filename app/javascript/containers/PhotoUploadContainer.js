@@ -82,7 +82,10 @@ class PhotoUploadContainer extends Component {
           submitPhoto={this.submitPhoto}
         />
     }
-
+    let width = 500
+    if (window.innerWidth <= 650) {
+      width = 250
+    }
     return(
       <div className="container wrapper">
           <div  className='col text-center'>
@@ -92,19 +95,23 @@ class PhotoUploadContainer extends Component {
               />
               <h2 className="col-6">{this.state.title}</h2>
             </div>
-            <FileField
-              class="row justify-content-center"
-              handleChange={this.handleFileChange}
-            />
-            <AvatarEditor
-              ref={this.setEditorRef}
-              image={this.state.uploadFile}
-              width={500}
-              height={500}
-              scale={parseFloat(this.state.scale)}
-              rotate={this.state.rotate}
-            />
-            {buttonGroup}
+              <FileField
+                class="row justify-content-center"
+                handleChange={this.handleFileChange}
+              />
+            <div className="col text-center">
+              <div className="editor">
+                <AvatarEditor
+                  ref={this.setEditorRef}
+                  image={this.state.uploadFile}
+                  width={width}
+                  height={width}
+                  scale={parseFloat(this.state.scale)}
+                  rotate={this.state.rotate}
+                />
+              </div>
+              {buttonGroup}
+            </div>
           </div>
       </div>
     )

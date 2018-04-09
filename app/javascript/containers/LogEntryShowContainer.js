@@ -161,8 +161,7 @@ class LogEntryShowContainer extends Component {
       </div>
     }
     let logEntry = this.state.logEntry
-    let display =
-      <h2>Please Log In or Sign Up to View Entry Details</h2>
+    let display
     if (this.state.currentUser) {
       display =
         <LogEntryShow
@@ -175,7 +174,7 @@ class LogEntryShowContainer extends Component {
           photoLink={photoLink}
           photos={this.state.divePhotoUrls}
         />
-    }
+    } 
     return (
       <div className="container wrapper">
         {display}
