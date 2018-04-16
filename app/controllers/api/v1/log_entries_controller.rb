@@ -1,6 +1,6 @@
 # api endpoint for log_entries
 class Api::V1::LogEntriesController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: %i[index]
 
   def index
@@ -19,28 +19,29 @@ class Api::V1::LogEntriesController < ApplicationController
   end
 
   def show
-    log_entry = LogEntry.find(params[:id])
-    user = nil
-    photo_urls = []
-    photos = Photo.where(log_entry_id: log_entry.id)
-    if photos[0]
-      photo_urls = photos.map { |photo| photo.dive_photo.model.dive_photo_url }
-    end
-    @author = User.find(log_entry.user_id)
-    site = Divesite.find(log_entry.divesite_id)
     if current_user
-      user = current_user
+      log_entry = LogEntry.find(params[:id])
+      user = nil
+      photo_urls = []
+      photos = Photo.where(log_entry_id: log_entry.id)
+      if photos[0]
+        photo_urls = photos.map { |photo| photo.dive_photo.model.dive_photo_url }
+      end
+      @author = User.find(log_entry.user_id)
+      site = Divesite.find(log_entry.divesite_id)
+      if current_user
+        user = current_user
+      end
+      get_picture(@author)
+      if log_entry.header_photo.model.header_photo_url.nil?
+        header_photo_url = 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
+      else
+        header_photo_url = log_entry.header_photo.model.header_photo_url
+      end
+      render json: { log_entry: log_entry, user: user, site: site,
+                     author: @author, photo_address: @photo_address,
+                     header_photo: header_photo_url, photos: photo_urls }
     end
-    get_picture(@author)
-    if log_entry.header_photo.model.header_photo_url.nil?
-      header_photo_url = 'http://diveinspirations.com/wp-content/uploads/2014/11/5x7-dive-flag-rect-640x457.png'
-    else
-      header_photo_url = log_entry.header_photo.model.header_photo_url
-    end
-    # binding.pry
-    render json: { log_entry: log_entry, user: user, site: site,
-                   author: @author, photo_address: @photo_address,
-                   header_photo: header_photo_url, photos: photo_urls }
   end
 
   def create

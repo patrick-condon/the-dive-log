@@ -31,16 +31,20 @@ class LogEntryShowContainer extends Component {
 
   componentDidMount() {
   let id = this.props.params.id
-  fetch(`/api/v1/log_entries/${id}`,{
+  fetch(`/api/v1/log_entries/${id}.json`,{
     credentials: 'same-origin'
   })
     .then(response => {
       if (response.ok) {
         return response;
       } else {
+        if (response.status == 401) {
+          alert('Please log in to view log entry')
+        } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
+        error = new Error(errorMessage);
         throw(error);
+        }
       }
     })
     .then(response => response.json())
@@ -174,7 +178,7 @@ class LogEntryShowContainer extends Component {
           photoLink={photoLink}
           photos={this.state.divePhotoUrls}
         />
-    } 
+    }
     return (
       <div className="container wrapper">
         {display}
