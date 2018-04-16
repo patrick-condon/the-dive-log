@@ -3,9 +3,13 @@ class Api::V1::DivesitesController < ApiController
   before_action :authenticate_user!
 
   def index
-    user = current_user
-    sites = Divesite.all.order(:created_at).reverse
-    render json: { sites: sites, user: user }
+    if current_user
+      user = current_user
+      sites = Divesite.all.order(:created_at).reverse
+      render json: { sites: sites, user: user }
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def show

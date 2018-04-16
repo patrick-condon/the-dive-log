@@ -111,7 +111,7 @@ class LogEntryFormContainer extends Component {
     }
   }
   componentDidMount() {
-    fetch('/api/v1/divesites', {
+    fetch('/api/v1/divesites.json', {
       credentials: 'same-origin'
     })
     .then(response => {
@@ -119,7 +119,7 @@ class LogEntryFormContainer extends Component {
         return response;
       } else {
         if (response.status == 401) {
-          alert('You must be signed in to do that')
+          alert('Please log in to create log entry')
         } else {
         let errorMessage = `${response.status} (${response.statusText})`,
         error = new Error(errorMessage);
@@ -272,7 +272,7 @@ class LogEntryFormContainer extends Component {
           </div>
           {display}
         </div>
-    } 
+    }
     return(
       <div className="container wrapper">
         {formDisplay}
