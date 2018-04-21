@@ -17,7 +17,6 @@ feature 'user registers' do
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'
-    attach_file :user_profile_photo, File.join(Rails.root, '/spec/support/images/exit.png')
 
     click_button 'Sign up'
 
