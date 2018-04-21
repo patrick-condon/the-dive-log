@@ -2,6 +2,7 @@
 
 [ ![Codeship Status for patrick-condon/the-dive-log](https://app.codeship.com/projects/71ef07d0-134b-0136-c028-1e87cb2ec923/status?branch=master)](https://app.codeship.com/projects/283166)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a93b0e9064607f1a51e3/maintainability)](https://codeclimate.com/github/patrick-condon/the-dive-log/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/patrick-condon/the-dive-log/badge.svg?branch=master)](https://coveralls.io/github/patrick-condon/the-dive-log?branch=master)
 
 # the-dive-log
 
