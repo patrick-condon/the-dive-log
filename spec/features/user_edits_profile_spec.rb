@@ -16,7 +16,6 @@ feature 'user can update account' do
     fill_in 'Current password', with: user.password
     click_on 'Update'
 
-
     expect(page).to have_content('Your account has been updated successfully')
   end
 end
