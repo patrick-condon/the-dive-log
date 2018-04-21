@@ -17,4 +17,7 @@ SimpleCov.start do
  add_filter 'app/controllers/sessions_controller.rb'
  add_filter 'app/controllers/log_entries_controller.rb'
  add_filter 'app/controllers/divesites_controller.rb'
+ add_filter 'app/javascript/uploaders/dive_photo_uploader.rb'
+ add_filter 'app/javascript/uploaders/header_photo_uploader.rb'
+ add_filter 'app/javascript/uploaders/profile_photo_uploader.rb'
 end

@@ -67,4 +67,23 @@ RSpec.describe Api::V1::LogEntriesController, type: :controller do
       expect(returned_json['log_entry']['date']).to eq('2016-07-05')
     end
   end
+  describe 'PATCH#update' do
+    it 'adds a photo' do
+      sign_in
+      post_json = { id: first_entry,
+                    header_photo: Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/exit.png')) }
+      patch(:update, params: post_json)
+      expect(LogEntry.find(first_entry.id).header_photo).not_to eq(nil)
+    end
+    it 'returns the url of the photo' do
+      sign_in
+      post_json = { id: first_entry,
+                    header_photo: Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/exit.png')) }
+      patch(:update, params: post_json)
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq('application/json')
+      expect(returned_json['header_photo']).to eq("/uploads/log_entry/header_photo/#{first_entry.id}/exit.png")
+    end
+  end
 end
