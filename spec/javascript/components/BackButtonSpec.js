@@ -20,7 +20,7 @@ describe('BackButton', () => {
     expect(wrapper.find('button')).toBePresent()
   })
 
-  it('should only change size from props', () => {
+  it('should change size from props', () => {
     wrapper.setProps({ size: 'col-3'})
     expect(wrapper.find('div')).toHaveProp('className', 'col-3 text-left')
   })
