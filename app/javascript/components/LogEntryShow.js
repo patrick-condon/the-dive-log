@@ -58,6 +58,7 @@ const LogEntryShow = props => {
       <div className="row">
         <BackButton
           size="col-4"
+          show={true}
         />
         <h3 className="col-4 le-title text-center">Log Entry{number}</h3>
       </div>
