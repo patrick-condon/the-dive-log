@@ -10,6 +10,21 @@ describe('LogEntryShowContainer', () => {
   rotateRight;
 
   beforeEach(() => {
+    let data = [
+        {
+          id: 1,
+          question: 'Question goes here',
+          answer: 'Answer goes here'
+        }
+      ]
+    let responseBody = JSON.stringify(data);
+    let response = new Response(responseBody, {
+      status: 200,
+      statusText: 'OK',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    let responsePromise = Promise.resolve(response);
+    spyOn(global, 'fetch').and.returnValue(responsePromise);
     wrapper = mount(<LogEntryShowContainer
       params={{ id: 1 }}
      />)
