@@ -38,7 +38,6 @@ class DivesiteSearchContainer extends Component {
     this.setState({ search: event.target.value })
   }
   handleDivesiteSelect(submission) {
-    event.preventDefault()
     this.setState({ selectedSite: submission })
   }
   handleSearchSubmit(event) {
