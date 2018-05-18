@@ -17,7 +17,6 @@ class LightboxContainer extends Component {
     this.openLightbox = this.openLightbox.bind(this);
   }
   openLightbox (index) {
-		event.preventDefault();
 		this.setState({
 			currentImage: index,
 			lightboxOpen: true,
