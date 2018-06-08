@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import LogEntryTile from '../components/LogEntryTile';
 import { Link } from 'react-router';
-import pic1 from "../../../app/assets/images/cave.jpg"
-import pic2 from "../../../app/assets/images/octopus.jpg"
-import pic3 from "../../../app/assets/images/turtle.jpg"
+// import pic1 from "../../../app/assets/images/cave.jpg"
+// import pic2 from "../../../app/assets/images/octopus.jpg"
+// import pic3 from "../../../app/assets/images/turtle.jpg"
 
 class LogEntriesIndexContainer extends Component {
   constructor(props) {
@@ -105,13 +105,13 @@ class LogEntriesIndexContainer extends Component {
           <div id="carouselExampleControls" className="carousel slide" data-ride="carousel" data-interval="10000" >
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <img className="d-block w-100" src={pic1} alt="First slide"/>
+                <img className="d-block w-100" src="https://s3.amazonaws.com/the-dive-log/uploads/carousel/cave.jpg" alt="First slide"/>
               </div>
               <div className="carousel-item">
-                <img className="d-block w-100" src={pic2} alt="Second slide"/>
+                <img className="d-block w-100" src="https://s3.amazonaws.com/the-dive-log/uploads/carousel/octopus.jpg" alt="Second slide"/>
               </div>
               <div className="carousel-item">
-                <img className="d-block w-100" src={pic3} alt="Third slide"/>
+                <img className="d-block w-100" src="https://s3.amazonaws.com/the-dive-log/uploads/carousel/turtle.jpg" alt="Third slide"/>
               </div>
             </div>
             <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -124,7 +124,6 @@ class LogEntriesIndexContainer extends Component {
             </a>
           </div>
           <h2>{this.state.title}</h2>
-          {/* <img src={require("../../../spec/support/images/exit.png")}/> */}
           <div className="row justify-content-center">
             <Link to={'/log_entries/new'} className="btn btn-primary">
               Add New Log Entry

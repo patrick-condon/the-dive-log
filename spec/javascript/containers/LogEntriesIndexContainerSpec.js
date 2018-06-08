@@ -33,13 +33,13 @@ describe('LogEntriesIndexContainer', () => {
     })
     expect(wrapper.find(LogEntryTile)).toBePresent()
     expect(wrapper.find('h3').text()).toEqual('Cathedral')
-    expect(wrapper.find('img')).toHaveProp('src', 'www.realphoto.org/photo.jpg')
+    expect(wrapper.find('img').at(3)).toHaveProp('src', 'www.realphoto.org/photo.jpg')
   })
 
   it('should display a link to create new log entry', () => {
-    expect(wrapper.find('a').at(0).text()).toBe('Add New Log Entry')
+    expect(wrapper.find('a').at(2).text()).toBe('Add New Log Entry')
   })
   it('should display a link to create new log divesite', () => {
-    expect(wrapper.find('a').at(1).text()).toBe('Add New DiveSite')
+    expect(wrapper.find('a').at(3).text()).toBe('Add New DiveSite')
   })
 })
