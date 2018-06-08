@@ -3,6 +3,16 @@
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
 @import url(https://fonts.googleapis.com/css?family=Stylish);
 
+#carouselExampleControls {
+  max-height: 30vw;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  img {
+    vertical-align: 50%;
+  }
+}
 #navbar {
   background-color: #35b3ff;
   margin-bottom: 2rem;
